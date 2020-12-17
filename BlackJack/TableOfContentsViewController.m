@@ -221,13 +221,44 @@
 
 -(IBAction)readButtonPress
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
+    UIAlertView *alertOld = [[UIAlertView alloc] initWithTitle:@"Button Press"
                                                     message:@"You pressed the Read button!"
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
-    [alert show];
-    [alert release];
+    [alertOld show];
+    [alertOld release];
+    
+    UIAlertController * alert = [UIAlertController
+                                alertControllerWithTitle:@"Logout"
+                                message:@"Are You Sure Want to Logout!"
+                                preferredStyle:UIAlertControllerStyleAlert];
+
+   //Add Buttons
+
+   UIAlertAction* yesButton = [UIAlertAction
+                               actionWithTitle:@"Yes"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   //Handle your yes please button action here
+                                   [self clearAllData];
+                               }];
+
+   UIAlertAction* noButton = [UIAlertAction
+                              actionWithTitle:@"Cancel"
+                              style:UIAlertActionStyleDefault
+                              handler:^(UIAlertAction * action) {
+                                  //Handle no, thanks button
+                              }];
+
+   //Add your buttons to alert controller
+
+   [alert addAction:yesButton];
+   [alert addAction:noButton];
+
+   [self presentViewController:alert animated:YES completion:nil];
+    
+    
 }
 -(IBAction)archiveButtonPress
 {
