@@ -151,17 +151,20 @@
     self.closeDetailedImageButton.hidden=FALSE;
     
 }
+
 -(IBAction) closeDetailButtonPress
 {
     self.detailImageView.hidden=TRUE;
     self.closeDetailedImageButton.hidden=TRUE;
 }
+
 - (void)dealloc {
     [_detailImageView release];
     [super dealloc];
 }
-- (void)viewDidUnload {
+
+- (void)viewDidDisappear:(BOOL)animated {
     [self setDetailImageView:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
 @end

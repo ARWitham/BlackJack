@@ -64,7 +64,7 @@
     UIButton *button3 = nil;
     UIButton *button4 = nil;
     
-    NSLog (@"Current Index: %d", index);
+    NSLog (@"Current Index: %lu", index);
 
     // Find out the current state of the chapter.
     // If unpurchased
@@ -217,8 +217,6 @@
     }
 }
 
-
-
 -(IBAction)readButtonPress
 {
     UIAlertView *alertOld = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -260,6 +258,7 @@
     
     
 }
+
 -(IBAction)archiveButtonPress
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -270,6 +269,7 @@
     [alert show];
     [alert release];
 }
+
 -(IBAction)media1ButtonPress
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -280,6 +280,7 @@
     [alert show];
     [alert release];
 }
+
 -(IBAction)media2ButtonPress
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -290,6 +291,7 @@
     [alert show];
     [alert release];
 }
+
 -(IBAction)buyButtonPress
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -305,10 +307,12 @@
     [_closeButton release];
     [super dealloc];
 }
-- (void)viewDidUnload {
+
+- (void)viewDidDisappear:(BOOL)animated {
     [self setCloseButton:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
+
 -(IBAction)close
 {
     [self dismissModalViewControllerAnimated:TRUE];

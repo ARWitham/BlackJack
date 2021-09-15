@@ -82,6 +82,7 @@ static BOOL isInitialized = FALSE;
         isInitialized = TRUE;
     }
 }
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -145,7 +146,7 @@ static BOOL isInitialized = FALSE;
     // Now perform the animation
     [UIView animateWithDuration:0.5
                           delay:0
-                        options: UIViewAnimationCurveEaseOut
+                        options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.frame = menuFrame;
                      }

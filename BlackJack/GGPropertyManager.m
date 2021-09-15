@@ -51,6 +51,7 @@ static NSString *bundlePath;
     
     return retrievedValue;
 }
+
 +(void) setCurrentPageNumber:(int)inputCurrentPageNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -76,6 +77,7 @@ static NSString *bundlePath;
     
     return retrievedValue;
 }
+
 +(void) setCurrentChapterNumber:(int)inputCurrentChapterNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

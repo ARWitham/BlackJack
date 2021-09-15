@@ -195,14 +195,11 @@ static BOOL isInitialized = FALSE;
     [self.menuView toggleMenu];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidDisappear:(BOOL)animated {
     [self setMenuView:nil];
     [self setCloudsView:nil];
-    [super viewDidUnload];
+    [super viewDidAppear:animated];
 }
-
-
-
 
 -(IBAction)mapButtonPress
 {
@@ -210,40 +207,46 @@ static BOOL isInitialized = FALSE;
     bjMainMenuOption = NSBJMainMenuMap;
     [self performSegueWithIdentifier: @"GotoMenuSegue" sender: self];
 }
+
 -(IBAction)tableOfContentsButtonPress
 {
     [self stopEverything];
     bjMainMenuOption = NSBJMainMenuTableOfContents;
     [self performSegueWithIdentifier: @"GotoTOCSegue" sender: self];
-
 }
+
 -(IBAction)titleButtonPress
 {
     [self stopEverything];
     [self.chapterDelegate gotoTitlePage];
 }
+
 -(IBAction)shareAndSpeculateButtonPress
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/BlackJackAMovingNovel"]];
 }
+
 -(IBAction)notesButtonPress
 {
     [self stopEverything];
     bjMainMenuOption = NSBJMainMenuNotes;
     [self performSegueWithIdentifier: @"GotoMenuSegue" sender: self];
 }
+
 -(IBAction)aboutTheAuthorButtonPress
 {
     [self stopEverything];
     bjMainMenuOption = NSBJMainMenuAbout;
     [self performSegueWithIdentifier: @"GotoMenuSegue" sender: self];
 }
+
 -(IBAction)dedicationButtonPress
 {
     [self stopEverything];
     bjMainMenuOption = NSBJMainMenuDedication;
     [self performSegueWithIdentifier: @"GotoMenuSegue" sender: self];
 }
+
 -(IBAction)swagButtonPress
 {
     [self stopEverything];
@@ -251,11 +254,13 @@ static BOOL isInitialized = FALSE;
     [self performSegueWithIdentifier: @"GotoSwagSegue" sender: self];
 
 }
+
 -(IBAction)returnToReadingButtonPress
 {
     [self stopEverything];
     [self.chapterDelegate returnToReading];
 }
+
 -(void)stopEverything
 {
     // stop audio
@@ -351,7 +356,7 @@ static BOOL isInitialized = FALSE;
             // Now perform the animation
 		            [UIView animateWithDuration:5
                                   delay:0
-                                options: UIViewAnimationCurveEaseOut
+                                options: UIViewAnimationOptionCurveEaseOut
                              animations:^{
                                  self.bookPageView.alpha = 0;
                              }
@@ -417,7 +422,6 @@ static BOOL isInitialized = FALSE;
     }
 
     [self.view addSubview:alertView];
-    
 }
 
 -(IBAction)okButtonPress
@@ -426,13 +430,13 @@ static BOOL isInitialized = FALSE;
     alertButtonPress = NSBJAlertButtonPressOK;
     [self manageAlertWorkflow];
 }
+
 -(IBAction)cancelButtonPress
 {
     [alertView removeFromSuperview];
     alertButtonPress = NSBJAlertButtonPressCancel;
     [self manageAlertWorkflow];
 }
-
 
 -(void)playTextPageAudio
 {
@@ -529,7 +533,6 @@ static BOOL isInitialized = FALSE;
 
 }
 
-
 -(void)displayCloudAnimation
 {
     // Build an array of images based on the image sequence name
@@ -557,6 +560,7 @@ static BOOL isInitialized = FALSE;
     [self.cloudsView startAnimating];
     [flourishImages release];
 }
+
 -(void)displaySnowAnimation
 {
     // Build an array of images based on the image sequence name
@@ -576,7 +580,7 @@ static BOOL isInitialized = FALSE;
             continueLoop=FALSE;
         }
     }
-    NSLog(@"%d, %d", arraySize, [flourishImages count]);
+    NSLog(@"%d, %lu", arraySize, flourishImages.count);
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/12; // the image sequence should have been rendered at 6 FPS because 24fps is hyperactive
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
@@ -584,6 +588,7 @@ static BOOL isInitialized = FALSE;
     [self.cloudsView startAnimating];
     [flourishImages release];
 }
+
 -(void)displayEmberAnimation
 {
     // Build an array of images based on the image sequence name
@@ -603,7 +608,7 @@ static BOOL isInitialized = FALSE;
             continueLoop=FALSE;
         }
     }
-    NSLog(@"%d, %d", arraySize, [flourishImages count]);
+    NSLog(@"%d, %lu", arraySize, flourishImages.count);
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/24;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
@@ -643,6 +648,7 @@ static BOOL isInitialized = FALSE;
     [flourishTimer invalidate];
     [flourishImages release];
 }
+
 -(void)displayMotesAnimation
 {
     // Build an array of images based on the image sequence name
@@ -662,7 +668,7 @@ static BOOL isInitialized = FALSE;
             continueLoop=FALSE;
         }
     }
-    NSLog(@"%d, %d", arraySize, [flourishImages count]);
+    NSLog(@"%d, %lu", arraySize, flourishImages.count);
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/24; // the image sequence should have been rendered at 6 FPS because 24fps is hyperactive
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
@@ -670,6 +676,7 @@ static BOOL isInitialized = FALSE;
     [self.cloudsView startAnimating];
     [flourishImages release];
 }
+
 -(void)displayIrrationalHypothermiaAnimation
 {
     // Build an array of images based on the image sequence name
@@ -689,7 +696,7 @@ static BOOL isInitialized = FALSE;
             continueLoop=FALSE;
         }
     }
-    NSLog(@"%d, %d", arraySize, [flourishImages count]);
+    NSLog(@"%d, %lu", arraySize, flourishImages.count);
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/24; // the image sequence should have been rendered at 6 FPS because 24fps is hyperactive
     self.cloudsView.animationRepeatCount = 1; // 0 = loops forever
@@ -697,6 +704,7 @@ static BOOL isInitialized = FALSE;
     [self.cloudsView startAnimating];
     [flourishImages release];
 }
+
 -(void)displayCopLightAnimation
 {
     // Build an array of images based on the image sequence name
@@ -716,7 +724,7 @@ static BOOL isInitialized = FALSE;
             continueLoop=FALSE;
         }
     }
-    NSLog(@"%d, %d", arraySize, [flourishImages count]);
+    NSLog(@"%d, %lu", arraySize, flourishImages.count);
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/24;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
@@ -725,14 +733,15 @@ static BOOL isInitialized = FALSE;
     [flourishImages release];
 
 }
+
 -(void)displayPageFadeIn
 {
-    self.bookPageView.alpha=0;
+    self.bookPageView.alpha = 0;
     
     // Now perform the animation
-    [UIView animateWithDuration:5
-                          delay:0
-                        options: UIViewAnimationCurveEaseOut
+    [UIView animateWithDuration: 5
+                          delay: 0
+                        options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.bookPageView.alpha = 1;
                      }

@@ -25,6 +25,7 @@
     }
     return self;
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -77,13 +78,14 @@
     [_mapView release];
     [super dealloc];
 }
-- (void)viewDidUnload {
+
+- (void)viewDidDisappear:(BOOL)animated {
     [self setMenuView:nil];
     [self setBackgroundImage:nil];
     [self setNotesImage:nil];
     [self setNotesText:nil];
     [self setMapView:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
 
 - (IBAction)toggleMenu
@@ -96,35 +98,43 @@
     NSLog(@"Map Button Press");
     
 }
+
 -(IBAction)tableOfContentsButtonPress
 {
     [self toggleMenu];
     [self performSegueWithIdentifier: @"GotoChapterSegue" sender: self];
 }
+
 -(IBAction)titleButtonPress
 {
     
 }
+
 -(IBAction)shareAndSpeculateButtonPress
 {
     
 }
+
 -(IBAction)notesButtonPress
 {
     
 }
+
 -(IBAction)aboutTheAuthorButtonPress
 {
     
 }
+
 -(IBAction)dedicationButtonPress
 {
     
 }
+
 -(IBAction)swagButtonPress
 {
     
 }
+
 -(IBAction)returnToReadingButtonPress
 {
     [self toggleMenu];

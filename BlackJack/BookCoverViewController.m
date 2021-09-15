@@ -133,10 +133,11 @@
     [alertView release];
     [super dealloc];
 }
-- (void)viewDidUnload {
+
+- (void)viewDidDisappear:(BOOL)animated {
     [self setBookCoverImage:nil];
     [self setRelaxImageView:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
 
 -(IBAction)okButtonPress
