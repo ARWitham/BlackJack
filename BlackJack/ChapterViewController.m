@@ -42,21 +42,6 @@ static BOOL isInitialized = FALSE;
     }
 }
 
-- (void)dealloc
-{
-    [_myView release];
-    [_bookPageView release];
-    [_bookPageBackgroundView release];
-    [moviePage release];
-    [textPage release];
-    [_flourishView release];
-    [_menuView release];
-    [flourishTimer release];
-    [_cloudsView release];
-    [player release];
-    [super dealloc];
-}
-
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -129,8 +114,8 @@ static BOOL isInitialized = FALSE;
         if (textPage.oneTimeAudioURL != nil)
         {
             // Play the audio
-            flourishTimer = [[NSTimer scheduledTimerWithTimeInterval:textPage.oneTimeAudioDelay target:self
-                                            selector:@selector(playTextPageAudio) userInfo:nil repeats:NO] retain];
+            flourishTimer = [NSTimer scheduledTimerWithTimeInterval:textPage.oneTimeAudioDelay target:self
+                                            selector:@selector(playTextPageAudio) userInfo:nil repeats:NO];
         }
         
         // play multi-page audio if necessary. Otherwise, make sure it is stopped.
@@ -174,15 +159,13 @@ static BOOL isInitialized = FALSE;
     if(textPage != nil)
     {
         if ([textPage displayFlourish]){
-            flourishTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self
-                                                             selector:@selector(displayFlourish) userInfo:nil repeats:NO]
-                              retain];
+            flourishTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
+                                                             selector:@selector(displayFlourish) userInfo:nil repeats:NO];
         }
         else if (textPage.overlay == kBJPixieOverlay)
         {
-            flourishTimer = [[NSTimer scheduledTimerWithTimeInterval:3 target:self
-                                                            selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO]
-                             retain];
+            flourishTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self
+                                                            selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO];
         }
 
     }
@@ -296,7 +279,7 @@ static BOOL isInitialized = FALSE;
 {
     if (moviePlayer != nil)
     {
-        [moviePlayer release];
+        moviePlayer = nil;
     }
     
     moviePlayer=[[MPMoviePlayerController alloc] initWithContentURL:moviePage.movieURL];
@@ -479,7 +462,6 @@ static BOOL isInitialized = FALSE;
     self.flourishView.image = [flourishImages objectAtIndex:arraySize];
     [self.flourishView startAnimating];
     [flourishTimer invalidate];
-    [flourishImages release];
 }
 
 -(void)displayPixieAnimation
@@ -522,14 +504,11 @@ static BOOL isInitialized = FALSE;
     self.flourishView.image = [flourishImages objectAtIndex:arraySize];
     [self.flourishView startAnimating];
     [flourishTimer invalidate];
-    [flourishImages release];
-    
     
     // Set up the timer. Should kick off between 12 and 20 seconds later
     int nextInterval = arc4random_uniform(8)+12;
-    flourishTimer = [[NSTimer scheduledTimerWithTimeInterval:nextInterval target:self
-                                                    selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO]
-                     retain];
+    flourishTimer = [NSTimer scheduledTimerWithTimeInterval:nextInterval target:self
+                                                    selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO];
 
 }
 
@@ -558,7 +537,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
 //    self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
 }
 
 -(void)displaySnowAnimation
@@ -586,7 +564,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
     self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
 }
 
 -(void)displayEmberAnimation
@@ -614,7 +591,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
     self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
 }
 
 -(void)displayFogAnimation
@@ -646,7 +622,6 @@ static BOOL isInitialized = FALSE;
     self.flourishView.image = [flourishImages objectAtIndex:arraySize];
     [self.flourishView startAnimating];
     [flourishTimer invalidate];
-    [flourishImages release];
 }
 
 -(void)displayMotesAnimation
@@ -674,7 +649,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
     self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
 }
 
 -(void)displayIrrationalHypothermiaAnimation
@@ -702,7 +676,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 1; // 0 = loops forever
     self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
 }
 
 -(void)displayCopLightAnimation
@@ -730,8 +703,6 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
     self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
-    [flourishImages release];
-
 }
 
 -(void)displayPageFadeIn

@@ -866,7 +866,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     CGRect frame = view.bounds;
     frame.size.width = _vertical? frame.size.width: _itemWidth;
     frame.size.height = _vertical? _itemWidth: frame.size.height;
-    UIView *containerView = [[[UIView alloc] initWithFrame:frame] autorelease];
+    UIView *containerView = [[UIView alloc] initWithFrame:frame];
     
 #ifdef ICAROUSEL_IOS
     
@@ -1225,7 +1225,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     {
         [_itemViewPool removeObject:view];
     }
-    return [view autorelease];
+    return view;
 }
 
 - (UIView *)dequeuePlaceholderView
@@ -1235,7 +1235,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     {
         [_placeholderViewPool removeObject:view];
     }
-    return [view autorelease];
+    return view;
 }
 
 
@@ -1262,7 +1262,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     
     if (view == nil)
     {
-        view = [[[UIView alloc] init] autorelease];
+        view = [[UIView alloc] init];
     }
     [self setItemView:view forIndex:index];
     if (containerView)

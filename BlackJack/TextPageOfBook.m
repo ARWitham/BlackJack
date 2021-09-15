@@ -22,7 +22,6 @@
 
 -(void)dealloc
 {
-    [super dealloc];
     NSLog(@"calling TextPageOfBook Dealloc");
 }
 
@@ -41,11 +40,11 @@
     if (self)
     {
         // Set the paths
-        textPagePath = [[[NSBundle mainBundle] pathForResource:inputTextPageImageFilePath ofType:inputTextPageImageFileType] retain];
+        textPagePath = [[NSBundle mainBundle] pathForResource:inputTextPageImageFilePath ofType:inputTextPageImageFileType];
         
         if (inputBackgroundImageFilePath != nil)
         {
-            backgroundPath = [[[NSBundle mainBundle] pathForResource:inputBackgroundImageFilePath ofType:inputBackgroundImageFileType] retain];
+            backgroundPath = [[NSBundle mainBundle] pathForResource:inputBackgroundImageFilePath ofType:inputBackgroundImageFileType];
         }
         
         // init flourish y axis to -1
@@ -57,7 +56,7 @@
         if (inputOneTimeAudioPath != nil)
         {
             NSString *audioPath = [[NSBundle mainBundle] pathForResource:inputOneTimeAudioPath ofType:inputOneTimeAudioFileType];
-            oneTimeAudioURL = [[NSURL fileURLWithPath:audioPath] retain];
+            oneTimeAudioURL = [NSURL fileURLWithPath:audioPath];
             oneTimeAudioDelay = inputOneTimeAudioDelay;
         }
 
@@ -66,7 +65,7 @@
         if (inputMultiPageAudioPath != nil)
         {
             NSString *audioPath = [[NSBundle mainBundle] pathForResource:inputMultiPageAudioPath ofType:inputMultiPageAudioFileType];
-            multiPageTimeAudioURL = [[NSURL fileURLWithPath:audioPath] retain];
+            multiPageTimeAudioURL = [NSURL fileURLWithPath:audioPath];
         }
     }
     return self;

@@ -13,7 +13,7 @@
 #import "BlackJackViewController.h"
 #import "BlackJackAlertView.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
 
 @protocol ChapterViewDelegate;
 
@@ -40,7 +40,6 @@ typedef NSUInteger NSBJAlertViewButtonPressType;
     NSBJMenuOption bjMainMenuOption;
     BOOL isPlayingIntroVideo;
     BOOL stopCloudRollover;
-    id<ChapterViewDelegate> _chapterDelegate;
     NSBJEndOfChapterState alertWorkFlowState;
     NSBJAlertViewButtonPressType alertButtonPress;
     BlackJackAlertView *alertView;

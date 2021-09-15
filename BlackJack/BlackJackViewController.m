@@ -56,8 +56,6 @@
             blackJackNotes = @"Thank you for reading BlackJack!";
         }
         self.notesText.text = blackJackNotes;
-        [blackJackNotes release];
-
     }
     if (menuOption == NSBJMainMenuMap)
     {
@@ -68,15 +66,6 @@
         
         [self.mapView setRegion:region];
     }
-}
-
-- (void)dealloc {
-    [menuView release];
-    [_backgroundImage release];
-    [_notesImage release];
-    [_notesText release];
-    [_mapView release];
-    [super dealloc];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

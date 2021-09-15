@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MenuBarView.h"
 #import "BlackJackAlertView.h"
-#import <AVFoundation/AVAudioPlayer.h>
 #import <MediaPlayer/MediaPlayer.h>
+@import AVFoundation;
 
 @interface BookCoverViewController : UIViewController <BlackJackAlertViewDelegate>
 {

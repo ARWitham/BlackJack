@@ -17,26 +17,20 @@
 
 @implementation RootViewController
 
-@synthesize modelController = _modelController;
-@synthesize returnToReading;
-
-- (void)dealloc
-{
-    [_pageViewController release];
-    [_modelController release];
-    [super dealloc];
-}
+//@synthesize returnToReading;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    _modelController = [[ModelController alloc] init];
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    self.pageViewController = [[[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil] autorelease];
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.delegate = self;
 
     int startingPageNumber=0;
-    if (returnToReading)
+    if (_returnToReading)
     {
         startingPageNumber = [GGPropertyManager getCurrentPageNumber];
     }
@@ -68,16 +62,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (ModelController *)modelController
-{
-     // Return the model controller object, creating it if necessary.
-     // In more complex implementations, the model controller may be passed to the view controller.
-    if (!_modelController) {
-        _modelController = [[ModelController alloc] init];
-    }
-    return _modelController;
 }
 
 #pragma mark - UIPageViewController delegate methods

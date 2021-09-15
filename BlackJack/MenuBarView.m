@@ -33,18 +33,18 @@ static BOOL isInitialized = FALSE;
     if (!isInitialized)
     {
         //initialize background image
-        backgroundImage = [[UIImage imageNamed:@"Menu-Background.jpg"] retain];
+        backgroundImage = [UIImage imageNamed:@"Menu-Background.jpg"];
 
         // Initialize buttons
-        mapButton                 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        tableOfContentsButton     = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        titleButton               = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        shareAndSpeculateButton   = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        notesButton               = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        aboutTheAuthorButton      = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        dedicationButton          = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        swagButton                = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        returnToReadingButton     = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        mapButton                 = [UIButton buttonWithType:UIButtonTypeCustom];
+        tableOfContentsButton     = [UIButton buttonWithType:UIButtonTypeCustom];
+        titleButton               = [UIButton buttonWithType:UIButtonTypeCustom];
+        shareAndSpeculateButton   = [UIButton buttonWithType:UIButtonTypeCustom];
+        notesButton               = [UIButton buttonWithType:UIButtonTypeCustom];
+        aboutTheAuthorButton      = [UIButton buttonWithType:UIButtonTypeCustom];
+        dedicationButton          = [UIButton buttonWithType:UIButtonTypeCustom];
+        swagButton                = [UIButton buttonWithType:UIButtonTypeCustom];
+        returnToReadingButton     = [UIButton buttonWithType:UIButtonTypeCustom];
     
         // Set the frame for each button
         [mapButton                          setFrame:CGRectMake(0,160,312, 63)];

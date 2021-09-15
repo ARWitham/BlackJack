@@ -31,15 +31,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    slowIntroTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self
-                                                    selector:@selector(launchPage) userInfo:nil repeats:NO]
-                     retain];
+    slowIntroTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
+                                                    selector:@selector(launchPage) userInfo:nil repeats:NO];
 }
 -(void)displayMovie
 {
     // here's the real deal
     NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"BookCoverLoop_H264" ofType:@"mov"];
-    NSURL *movieURL = [[NSURL fileURLWithPath:moviePath] retain];
+    NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
 
 	// Do any additional setup after loading the view.
     moviePlayer=[[MPMoviePlayerController alloc] initWithContentURL:movieURL];
@@ -59,7 +58,7 @@
     
     // Play audio
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Cover Loop" ofType:@"wav"];
-    NSURL *audioURL = [[NSURL fileURLWithPath:audioPath] retain];
+    NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
     audioPlayer = [[AVAudioPlayer alloc]
               initWithContentsOfURL:audioURL
               error:nil];
@@ -100,14 +99,13 @@
     [moviePlayer stop];
     
     [moviePlayer.view removeFromSuperview];
-    [moviePlayer release];
 
     // Fade fire audio audio
     [self doFireAudioFade];
 
     // Play the book creak
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Creak" ofType:@"wav"];
-    NSURL *audioURL = [[NSURL fileURLWithPath:audioPath] retain];
+    NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
     AVAudioPlayer *creakAudioPlayer = [[AVAudioPlayer alloc]
                           initWithContentsOfURL:audioURL
                           error:nil];
@@ -125,13 +123,6 @@
         // when the fade is complete, stop the player
         [audioPlayer stop];
     }
-}
-
-- (void)dealloc {
-    [_bookCoverImage release];
-    [_relaxImageView release];
-    [alertView release];
-    [super dealloc];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

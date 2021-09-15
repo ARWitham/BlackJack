@@ -115,32 +115,32 @@
         }
         
             
-        view = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 384.0f, 512.0f)] autorelease];
+        view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 384.0f, 512.0f)];
         ((UIImageView *)view).image = [UIImage imageNamed:imageName];
         view.contentMode = UIViewContentModeCenter;
     
         // Only add buttons if not on the TOC
         if (index == 1)
         {
-            button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:CGRectMake(-37,443,86,87)];
             [button setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(readButtonPress) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:button];
 
-            button2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            button2 = [UIButton buttonWithType:UIButtonTypeCustom];
             [button2 setFrame:CGRectMake(87,443,86,87)];
             [button2 setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
             [button2 addTarget:self action:@selector(archiveButtonPress) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:button2];
 
-            button3 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            button3 = [UIButton buttonWithType:UIButtonTypeCustom];
             [button3 setFrame:CGRectMake(211,443,86,87)];
             [button3 setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
             [button3 addTarget:self action:@selector(media1ButtonPress) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:button3];
 
-            button4 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            button4 = [UIButton buttonWithType:UIButtonTypeCustom];
             [button4 setFrame:CGRectMake(335,443,86,87)];
             [button4 setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
             [button4 addTarget:self action:@selector(media2ButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -149,19 +149,19 @@
     // Only add buttons if not on the TOC
     else if (index > 1 && index < 5)
     {
-        button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(3,443,86,87)];
         [button setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(readButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:button];
         
-        button2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        button2 = [UIButton buttonWithType:UIButtonTypeCustom];
         [button2 setFrame:CGRectMake(149,443,86,87)];
         [button2 setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
         [button2 addTarget:self action:@selector(archiveButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:button2];
         
-        button3 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        button3 = [UIButton buttonWithType:UIButtonTypeCustom];
         [button3 setFrame:CGRectMake(295,443,86,87)];
         [button3 setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
         [button3 addTarget:self action:@selector(media1ButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -172,7 +172,7 @@
     // Only add buttons if not on the TOC
     else if (index ==5)
     {
-        button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(149,443,86,87)];
         [button setBackgroundImage:[UIImage imageNamed:@"ToC_Button.png"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buyButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -225,7 +225,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alertOld show];
-    [alertOld release];
     
     UIAlertController * alert = [UIAlertController
                                 alertControllerWithTitle:@"Logout"
@@ -259,6 +258,10 @@
     
 }
 
+-(void) clearAllData {
+    
+}
+
 -(IBAction)archiveButtonPress
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
@@ -267,7 +270,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alert show];
-    [alert release];
 }
 
 -(IBAction)media1ButtonPress
@@ -278,7 +280,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alert show];
-    [alert release];
 }
 
 -(IBAction)media2ButtonPress
@@ -289,7 +290,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alert show];
-    [alert release];
 }
 
 -(IBAction)buyButtonPress
@@ -300,12 +300,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles: nil];
     [alert show];
-    [alert release];
-}
-
-- (void)dealloc {
-    [_closeButton release];
-    [super dealloc];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

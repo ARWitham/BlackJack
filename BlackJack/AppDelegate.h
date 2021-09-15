@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate>
 {

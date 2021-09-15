@@ -23,7 +23,7 @@ typedef NSUInteger NSBJAlertType;
 
 @interface BlackJackAlertView : UIView
 {
-    id<BlackJackAlertViewDelegate> _delegate;
+//    id<BlackJackAlertViewDelegate> _delegate;
     UIButton *okButton;
     UIButton *cancelButton;
 }
