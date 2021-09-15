@@ -19,7 +19,6 @@
     [super dealloc];
 }
 
-
 - (void)playMultiPageAudioFromURL:(NSURL *)audioURL
 {
     if (!isMultiPageAudioPlaying)
@@ -32,6 +31,7 @@
         isMultiPageAudioPlaying = TRUE;
     }
 }
+
 -(void)playMultiPageAudioFromPath:(NSString *)inputAudioPath andType:(NSString *)inputAudioFileType
 {
     NSString *auidoPath = [[NSBundle mainBundle] pathForResource:inputAudioPath ofType:inputAudioFileType];
@@ -47,6 +47,7 @@
         isMultiPageAudioPlaying=FALSE;
     }
 }
+
 -(void)doMultiPageAudioFade
 {
     if (multiPageAudioPlayer.volume > 0.1) {
