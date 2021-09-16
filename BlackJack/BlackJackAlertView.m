@@ -9,20 +9,18 @@
 #import "BlackJackAlertView.h"
 
 @implementation BlackJackAlertView
-@synthesize selectedAlertOption;
-@synthesize delegate = _delegate;
-@synthesize backgroundImage;
--(id)initWithOption:(NSBJAlertType)alertOption
+
+-(instancetype)initWithOption:(NSBJAlertType)alertOption
 {
     self = [super init];
     if (self)
     {
-        selectedAlertOption = alertOption;
+        self.selectedAlertOption = alertOption;
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -33,41 +31,42 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (selectedAlertOption == NSBJFirstLaunch)
+    if (self.selectedAlertOption == NSBJFirstLaunch)
     {
         [self drawFirstLaunch:rect];
     }
-    else if (selectedAlertOption == NSBJAudioAnnouncement)
+    else if (self.selectedAlertOption == NSBJAudioAnnouncement)
     {
         [self drawAudioAnnouncement:rect];
     }
-    else if (selectedAlertOption == NSBJBuyChapter2)
+    else if (self.selectedAlertOption == NSBJBuyChapter2)
     {
         [self drawBuyChapter2:rect];
     }
-    else if (selectedAlertOption == NSBJBuyAllChapters)
+    else if (self.selectedAlertOption == NSBJBuyAllChapters)
     {
         [self drawBuyAllChapters:rect];
     }
-    else if (selectedAlertOption == NSBJBuyOneGetOne)
+    else if (self.selectedAlertOption == NSBJBuyOneGetOne)
     {
         [self drawBuyOneGetOne:rect];
     }
-    else if (selectedAlertOption == NSBJBuySwag)
+    else if (self.selectedAlertOption == NSBJBuySwag)
     {
         [self drawBuySwag:rect];
     }
 
 }
+
 -(void)drawFirstLaunch:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"CenterTapAnnouncement.jpg"];
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.backgroundImage = [UIImage imageNamed:@"CenterTapAnnouncement.jpg"];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     backgroundView.frame =  CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
                                        CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                       backgroundImage.size.width,
-                                       backgroundImage.size.height);
+                                       self.backgroundImage.size.width,
+                                       self.backgroundImage.size.height);
     [self addSubview:backgroundView];
     
     // Setup the button
@@ -77,16 +76,17 @@
     [okButton setBackgroundColor:[UIColor clearColor]];
     [self addSubview:okButton];
 }
+
 -(void)drawAudioAnnouncement:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"AudioAnnouncement.jpg"];
+    self.backgroundImage = [UIImage imageNamed:@"AudioAnnouncement.jpg"];
     
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     backgroundView.frame =  CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
                                        CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                       backgroundImage.size.width,
-                                       backgroundImage.size.height);
+                                       self.backgroundImage.size.width,
+                                       self.backgroundImage.size.height);
     [self addSubview:backgroundView];
     
     // Setup the button
@@ -96,16 +96,17 @@
     [okButton setBackgroundColor:[UIColor clearColor]];
     [self addSubview:okButton];
 }
+
 -(void)drawBuyChapter2:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"BuyChapter2.png"];
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.backgroundImage = [UIImage imageNamed:@"BuyChapter2.png"];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     
     CGRect alertRect = CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
-                                    CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                    backgroundImage.size.width,
-                                    backgroundImage.size.height);
+                                  CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
+                                  self.backgroundImage.size.width,
+                                  self.backgroundImage.size.height);
     
     self.frame = alertRect;
     
@@ -133,13 +134,13 @@
 -(void)drawBuyAllChapters:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"2 Offer Buy All.png"];
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.backgroundImage = [UIImage imageNamed:@"2 Offer Buy All.png"];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     
     CGRect alertRect = CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
                                   CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                  backgroundImage.size.width,
-                                  backgroundImage.size.height);
+                                  self.backgroundImage.size.width,
+                                  self.backgroundImage.size.height);
     
     self.frame = alertRect;
     
@@ -163,16 +164,17 @@
     [self addSubview:okButton];
     [self addSubview:cancelButton];
 }
+
 -(void)drawBuyOneGetOne:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"BOGO.png"];
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.backgroundImage = [UIImage imageNamed:@"BOGO.png"];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     
     CGRect alertRect = CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
                                   CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                  backgroundImage.size.width,
-                                  backgroundImage.size.height);
+                                  self.backgroundImage.size.width,
+                                  self.backgroundImage.size.height);
     
     self.frame = alertRect;
     
@@ -196,16 +198,17 @@
     [self addSubview:okButton];
     [self addSubview:cancelButton];
 }
+
 -(void)drawBuySwag:(CGRect)rect
 {
     // set the background image
-    backgroundImage = [UIImage imageNamed:@"4 Share for Swag.png"];
-    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.backgroundImage = [UIImage imageNamed:@"4 Share for Swag.png"];
+    UIImageView* backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     
     CGRect alertRect = CGRectMake(CGRectGetMidX(self.bounds) - CGRectGetMidX(backgroundView.bounds),
                                   CGRectGetMidY(self.bounds) - CGRectGetMidY(backgroundView.bounds),
-                                  backgroundImage.size.width,
-                                  backgroundImage.size.height);
+                                  self.backgroundImage.size.width,
+                                  self.backgroundImage.size.height);
     
     self.frame = alertRect;
     
@@ -229,6 +232,5 @@
     [self addSubview:okButton];
     [self addSubview:cancelButton];
 }
-
 
 @end

@@ -23,14 +23,12 @@ typedef NSUInteger NSBJAlertType;
 
 @interface BlackJackAlertView : UIView
 {
-//    id<BlackJackAlertViewDelegate> _delegate;
     UIButton *okButton;
     UIButton *cancelButton;
 }
 @property NSBJAlertType selectedAlertOption;
-@property(nonatomic, assign) id<BlackJackAlertViewDelegate> delegate;
-@property(nonatomic, assign) UIImage *backgroundImage;
--(id)initWithOption:(NSBJAlertType)alertOption;
+@property(nonatomic, weak, nullable) id<BlackJackAlertViewDelegate> delegate;
+@property(nonatomic, strong, nullable) UIImage *backgroundImage;
 
 @end
 
