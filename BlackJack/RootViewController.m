@@ -17,14 +17,12 @@
 
 @implementation RootViewController
 
-//@synthesize returnToReading;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     _modelController = [[ModelController alloc] init];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.delegate = self;
@@ -65,14 +63,6 @@
 }
 
 #pragma mark - UIPageViewController delegate methods
-
-/*
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
-    
-}
- */
-
 - (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     
@@ -95,6 +85,7 @@
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 }
+
 -(void)returntoLastPageRead
 {
     int startingPageNumber=0;
@@ -106,6 +97,7 @@
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     
 }
+
 -(void)turnPageAutomatically
 {
     int currentPageNumber = [GGPropertyManager getCurrentPageNumber];
@@ -114,6 +106,5 @@
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     
 }
-
 
 @end

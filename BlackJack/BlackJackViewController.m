@@ -10,40 +10,21 @@
 #import "BlackJackViewController.h"
 #import "RootViewController.h"
 
-@interface BlackJackViewController ()
-
-@end
-
 @implementation BlackJackViewController
-@synthesize menuView;
-@synthesize menuOption;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    menuView.menuDelegate = self;
-    if (menuOption == NSBJMainMenuAbout)
+    self.menuView.menuDelegate = self;
+    if (self.menuOption == NSBJMainMenuAbout)
     {
         [self.backgroundImage setImage:[UIImage imageNamed:@"About.jpg"]];
     }
-    if (menuOption == NSBJMainMenuDedication)
+    if (self.menuOption == NSBJMainMenuDedication)
     {
         [self.backgroundImage setImage:[UIImage imageNamed:@"Dedication.jpg"]];
     }
-    if (menuOption == NSBJMainMenuNotes)
+    if (self.menuOption == NSBJMainMenuNotes)
     {
         [self.backgroundImage setImage:[UIImage imageNamed:@"TOC_Bkgd.jpg"]];
         self.notesImage.hidden = false;
@@ -57,7 +38,7 @@
         }
         self.notesText.text = blackJackNotes;
     }
-    if (menuOption == NSBJMainMenuMap)
+    if (self.menuOption == NSBJMainMenuMap)
     {
         self.mapView.hidden = false;
         CLLocationCoordinate2D coord = {.latitude =  43.7385, .longitude= -101.9376};
@@ -79,7 +60,7 @@
 
 - (IBAction)toggleMenu
 {
-    [menuView toggleMenu];
+    [self.menuView toggleMenu];
 }
 
 -(IBAction)mapButtonPress
