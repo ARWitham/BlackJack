@@ -21,11 +21,12 @@
     BOOL displayedFirstTime;
     BOOL displayedAudioWarning;
 }
-@property (retain, nonatomic) IBOutlet UIImageView *relaxImageView;
-@property (retain, nonatomic) IBOutlet UIImageView *bookCoverImage;
-@property (retain, nonatomic) MenuBarView *menuView;
+NS_ASSUME_NONNULL_BEGIN
+@property (strong, nonatomic, nullable) IBOutlet UIImageView *relaxImageView;
+@property (strong, nonatomic, nullable) IBOutlet UIImageView *bookCoverImage;
+@property (strong, nonatomic) MenuBarView *menuView;
 //@property (retain, nonatomic) IBOutlet BlackJackAlertView *alertView;
 -(IBAction)openBook;
 -(IBAction)okButtonPress;
-
+NS_ASSUME_NONNULL_END
 @end

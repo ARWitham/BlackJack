@@ -12,21 +12,7 @@
 #import "GGPropertyManager.h"
 #import "AppDelegate.h"
 
-@interface BookCoverViewController ()
-
-@end
-
 @implementation BookCoverViewController
-//@synthesize alertView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -34,6 +20,7 @@
     slowIntroTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
                                                     selector:@selector(launchPage) userInfo:nil repeats:NO];
 }
+
 -(void)displayMovie
 {
     // here's the real deal
@@ -114,6 +101,7 @@
     [self performSegueWithIdentifier: @"OpenBookSegue" sender: self];
     
 }
+
 -(void)doFireAudioFade
 {
     if (audioPlayer.volume > 0.1) {
@@ -145,6 +133,7 @@
         [self displayMovie];
     }
 }
+
 -(IBAction)cancelButtonPress
 {
     
