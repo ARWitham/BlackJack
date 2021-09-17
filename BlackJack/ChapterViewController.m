@@ -356,8 +356,7 @@ static BOOL isInitialized = FALSE;
 
 -(void)manageAlertWorkflow
 {
-    CGRect frame = CGRectMake(0, 0, 768, 1024);
-    alertView = [[BlackJackAlertView alloc] initWithFrame:frame];
+    alertView = [[BlackJackAlertView alloc] init];
     [alertView setBackgroundColor:[UIColor clearColor]];
     alertView.delegate = self;
 
@@ -404,6 +403,7 @@ static BOOL isInitialized = FALSE;
         }
     }
 
+    alertView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [self.view addSubview:alertView];
 }
 

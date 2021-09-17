@@ -57,25 +57,25 @@
 
 -(void)launchPage
 {
-    if ([GGPropertyManager isFirstLaunch])
-    {
-        CGRect frame = CGRectMake(0, 0, 768, 1024);
-        alertView = [[BlackJackAlertView alloc] initWithFrame:frame];
-        [alertView setSelectedAlertOption:NSBJFirstLaunch];
-        [alertView setBackgroundColor:[UIColor clearColor]];
-        alertView.delegate = self;
-        [self.view addSubview:alertView];
+    if ([GGPropertyManager isFirstLaunch]) {
+        self.alertView = [[BlackJackAlertView alloc] initWithOption: NSBJFirstLaunch];
+        [self.alertView setBackgroundColor:[UIColor clearColor]];
+        self.alertView.delegate = self;
+        self.alertView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        [self.view addSubview:self.alertView];
         displayedFirstTime = TRUE;
-    }
-    else if (!displayedAudioWarning)
-    {
-        CGRect frame = CGRectMake(0, 0, 768, 1024);
-        alertView = [[BlackJackAlertView alloc] initWithFrame:frame];
-        [alertView setSelectedAlertOption:NSBJAudioAnnouncement];
-        [alertView setBackgroundColor:[UIColor clearColor]];
-        alertView.delegate = self;
-        alertView.center = self.view.center;
-        [self.view addSubview:alertView];
+    } else if (!displayedAudioWarning) {
+        self.alertView = [[BlackJackAlertView alloc] initWithOption:NSBJAudioAnnouncement];
+        [self.alertView setBackgroundColor:[UIColor yellowColor]];
+        self.alertView.delegate = self;
+        self.alertView.center = self.view.center;
+        self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:self.alertView];
+        [self.view bringSubviewToFront:self.alertView];
+        [self.view.leadingAnchor constraintEqualToAnchor:self.alertView.leadingAnchor].active = YES;
+        [self.view.trailingAnchor constraintEqualToAnchor:self.alertView.trailingAnchor].active = YES;
+        [self.view.safeAreaLayoutGuide.topAnchor constraintEqualToAnchor:self.alertView.topAnchor].active = YES;
+        [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.alertView.bottomAnchor].active = YES;
         displayedAudioWarning = TRUE;
     }
 }
@@ -121,7 +121,7 @@
 
 -(IBAction)okButtonPress
 {
-    [alertView removeFromSuperview];
+    [self.alertView removeFromSuperview];
     
     if (!displayedAudioWarning)
     {

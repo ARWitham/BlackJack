@@ -17,7 +17,6 @@
     AVAudioPlayer *audioPlayer;
     MPMoviePlayerController *moviePlayer;
     NSTimer *slowIntroTimer;
-    BlackJackAlertView *alertView;
     BOOL displayedFirstTime;
     BOOL displayedAudioWarning;
 }
@@ -25,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) IBOutlet UIImageView *relaxImageView;
 @property (strong, nonatomic, nullable) IBOutlet UIImageView *bookCoverImage;
 @property (strong, nonatomic) MenuBarView *menuView;
-//@property (retain, nonatomic) IBOutlet BlackJackAlertView *alertView;
+@property (retain, nonatomic) IBOutlet BlackJackAlertView *alertView;
 -(IBAction)openBook;
 -(IBAction)okButtonPress;
 NS_ASSUME_NONNULL_END

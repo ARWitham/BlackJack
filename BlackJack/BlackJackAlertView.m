@@ -10,21 +10,12 @@
 
 @implementation BlackJackAlertView
 
--(instancetype)initWithOption:(NSBJAlertType)alertOption
+-(nonnull instancetype)initWithOption:(NSBJAlertType)alertOption
 {
     self = [super init];
     if (self)
     {
         self.selectedAlertOption = alertOption;
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
     }
     return self;
 }
