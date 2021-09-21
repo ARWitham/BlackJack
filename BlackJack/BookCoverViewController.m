@@ -34,15 +34,16 @@
     [moviePlayer setShouldAutoplay:TRUE];
     [moviePlayer setControlStyle:MPMovieControlStyleNone];
     [moviePlayer setRepeatMode:MPMovieRepeatModeOne];
-    
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0,0,768,1024)];
     [button addTarget:self action:@selector(openBook) forControlEvents:UIControlEventTouchUpInside];
-    
+
     [moviePlayer.view addSubview:button];
     [moviePlayer.view addSubview:self.menuView];
     [self.view addSubview:moviePlayer.view];
-    
+    [moviePlayer.view bringSubviewToFront:button];
+
     // Play audio
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Cover Loop" ofType:@"wav"];
     NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
@@ -50,7 +51,7 @@
               initWithContentsOfURL:audioURL
               error:nil];
     [audioPlayer play];
-    
+
     // this will go somehwere else eventually
     self.relaxImageView.hidden = TRUE;
 }
