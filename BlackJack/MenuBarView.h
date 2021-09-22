@@ -11,12 +11,9 @@
 @protocol MainMenuDelegate;
 
 @interface MenuBarView : UIView
-{
-//    id<MainMenuDelegate> _menuDelegate;
-    BOOL isMenuDisplayed;
-}
 @property(nonatomic, assign) id<MainMenuDelegate> menuDelegate;
 @property(nonatomic) BOOL hideReturnToReading;
+@property(nonatomic) BOOL isMenuDisplayed;
 
 -(void) toggleMenu;
 

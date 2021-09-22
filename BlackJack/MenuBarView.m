@@ -25,9 +25,6 @@ static BOOL isInitialized = FALSE;
 
 @implementation MenuBarView
 
-@synthesize menuDelegate = _menuDelegate;
-@synthesize hideReturnToReading;
-
 +(void) initialize
 {
     if (!isInitialized)
@@ -111,7 +108,7 @@ static BOOL isInitialized = FALSE;
     [self addSubview:dedicationButton];
     [self addSubview:swagButton];
     
-    if(!hideReturnToReading)
+    if(!self.hideReturnToReading)
     {
         [self addSubview:returnToReadingButton];
     }
@@ -121,7 +118,7 @@ static BOOL isInitialized = FALSE;
 - (void)toggleMenu
 {
     // If the menu was hidden, unhide it before animating
-    if (!isMenuDisplayed)
+    if (!self.isMenuDisplayed)
     {
         self.hidden = FALSE;
     }
@@ -129,7 +126,7 @@ static BOOL isInitialized = FALSE;
     CGRect menuFrame = self.frame;
     
     // If the menu is curently displayed, we will hide it by moving the origin of the frame off view.
-    if (isMenuDisplayed)
+    if (self.isMenuDisplayed)
     {
         menuFrame.origin.x = 768;
     }
@@ -141,7 +138,9 @@ static BOOL isInitialized = FALSE;
     }
     
     // toggle the isMenuDisplayed setting
-    isMenuDisplayed = !isMenuDisplayed;
+    self.isMenuDisplayed = !self.isMenuDisplayed;
+
+    __weak typeof(self) weakSelf = self;
     
     // Now perform the animation
     [UIView animateWithDuration:0.5
@@ -151,10 +150,10 @@ static BOOL isInitialized = FALSE;
                          self.frame = menuFrame;
                      }
                      completion:^(BOOL finished){
-                         
+                         __strong typeof(self) strongSelf = weakSelf;
                          // If the menu was just moved off screen, hide it now so it doesn't show on the back side
                          // of the page on a pagecurl
-                         if (!isMenuDisplayed)
+                         if (!strongSelf.isMenuDisplayed)
                          {
                              self.hidden = TRUE;
                          }
