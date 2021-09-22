@@ -219,13 +219,6 @@
 
 -(IBAction)readButtonPress
 {
-    UIAlertView *alertOld = [[UIAlertView alloc] initWithTitle:@"Button Press"
-                                                    message:@"You pressed the Read button!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    [alertOld show];
-    
     UIAlertController * alert = [UIAlertController
                                 alertControllerWithTitle:@"Logout"
                                 message:@"Are You Sure Want to Logout!"
@@ -264,42 +257,42 @@
 
 -(IBAction)archiveButtonPress
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
-                                                    message:@"You pressed the Read button!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    [alert show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Button Pressed" message:@"You pressed archive button!" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(IBAction)media1ButtonPress
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
-                                                    message:@"You pressed the first media button!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    [alert show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Button Pressed" message:@"You pressed first media button!" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(IBAction)media2ButtonPress
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
-                                                    message:@"You pressed the second media button!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    [alert show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Button Pressed" message:@"You pressed second media button!" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(IBAction)buyButtonPress
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Button Press"
-                                                    message:@"You pressed the buy button!"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    [alert show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Button Pressed" message:@"You pressed the buy  button!" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -309,6 +302,6 @@
 
 -(IBAction)close
 {
-    [self dismissModalViewControllerAnimated:TRUE];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
