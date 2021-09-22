@@ -27,22 +27,28 @@
     NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"BookCoverLoop_H264" ofType:@"mov"];
     NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
 
-	// Do any additional setup after loading the view.
-    moviePlayer=[[MPMoviePlayerController alloc] initWithContentURL:movieURL];
-    [moviePlayer.view setFrame:self.view.frame];
-    [moviePlayer prepareToPlay];
-    [moviePlayer setShouldAutoplay:TRUE];
-    [moviePlayer setControlStyle:MPMovieControlStyleNone];
-    [moviePlayer setRepeatMode:MPMovieRepeatModeOne];
+    AVAsset *asset = [AVAsset assetWithURL:movieURL];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    playerLayer.frame = self.view.frame;
+
+    // configure the player
+    [player seekToTime:kCMTimeZero];
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0,0,768,1024)];
     [button addTarget:self action:@selector(openBook) forControlEvents:UIControlEventTouchUpInside];
 
-    [moviePlayer.view addSubview:button];
-    [moviePlayer.view addSubview:self.menuView];
-    [self.view addSubview:moviePlayer.view];
-    [moviePlayer.view bringSubviewToFront:button];
+    [self.view addSubview:self.menuView];
+    [self.view addSubview:button];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd) name:AVPlayerItemDidPlayToEndTimeNotification object: player.currentItem];
+
+    [self.view.layer addSublayer:playerLayer];
+    [player play];
 
     // Play audio
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Cover Loop" ofType:@"wav"];
@@ -54,6 +60,10 @@
 
     // this will go somehwere else eventually
     self.relaxImageView.hidden = TRUE;
+}
+
+-(void)playerItemDidReachEnd {
+
 }
 
 -(void)launchPage
@@ -84,10 +94,6 @@
 
 -(IBAction)openBook
 {
-    [moviePlayer stop];
-    
-    [moviePlayer.view removeFromSuperview];
-
     // Fade fire audio audio
     [self doFireAudioFade];
 

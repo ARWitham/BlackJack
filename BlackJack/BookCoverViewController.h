@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MenuBarView.h"
 #import "BlackJackAlertView.h"
-#import <MediaPlayer/MediaPlayer.h>
 @import AVFoundation;
+@import AVKit;
 
 @interface BookCoverViewController : UIViewController <BlackJackAlertViewDelegate>
 {
     AVAudioPlayer *audioPlayer;
-    MPMoviePlayerController *moviePlayer;
     NSTimer *slowIntroTimer;
     BOOL displayedFirstTime;
     BOOL displayedAudioWarning;
