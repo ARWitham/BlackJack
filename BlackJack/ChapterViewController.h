@@ -33,19 +33,6 @@ enum {
 typedef NSUInteger NSBJAlertViewButtonPressType;
 
 @interface ChapterViewController : UIViewController <MainMenuDelegate, BlackJackAlertViewDelegate>
-{
-//    MPMoviePlayerController *moviePlayer;
-    BOOL isMenuDisplayed;
-    NSTimer *flourishTimer;
-    NSBJMenuOption bjMainMenuOption;
-    BOOL isPlayingIntroVideo;
-    BOOL stopCloudRollover;
-    NSBJEndOfChapterState alertWorkFlowState;
-    NSBJAlertViewButtonPressType alertButtonPress;
-    BlackJackAlertView *alertView;
-    BOOL startedCustomAudio;
-    AVAudioPlayer *player;
-}
 
 @property (retain, nonatomic) IBOutlet MenuBarView *menuView;
 @property (strong, nonatomic) IBOutlet UIImageView *bookPageView;

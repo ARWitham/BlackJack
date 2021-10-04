@@ -36,6 +36,7 @@
 
     // configure the player
     [player seekToTime:kCMTimeZero];
+    player.volume = 0;
     player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -45,7 +46,7 @@
     [self.view addSubview:self.menuView];
     [self.view addSubview:button];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd) name:AVPlayerItemDidPlayToEndTimeNotification object: player.currentItem];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object: player.currentItem];
 
     [self.view.layer addSublayer:playerLayer];
     [player play];
@@ -62,8 +63,9 @@
     self.relaxImageView.hidden = TRUE;
 }
 
--(void)playerItemDidReachEnd {
-
+-(void)playerItemDidReachEnd: (NSNotification *) notification {
+    AVPlayerItem *playerItem = (AVPlayerItem *) notification.object;
+    [playerItem seekToTime:kCMTimeZero completionHandler:nil];
 }
 
 -(void)launchPage

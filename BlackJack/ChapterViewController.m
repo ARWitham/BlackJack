@@ -16,19 +16,27 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 static CGRect initialCloudViewRect, normalCloudViewRect, currentCloudView1Rect, currentCloudView2Rect;
-static MPMoviePlayerController *moviePlayer;
 
 static BOOL isInitialized = FALSE;
 
 @interface ChapterViewController ()
+{
+    BOOL isMenuDisplayed;
+    NSTimer *flourishTimer;
+    NSBJMenuOption bjMainMenuOption;
+    BOOL isPlayingIntroVideo;
+    BOOL stopCloudRollover;
+    NSBJEndOfChapterState alertWorkFlowState;
+    NSBJAlertViewButtonPressType alertButtonPress;
+    BlackJackAlertView *alertView;
+    BOOL startedCustomAudio;
+    AVAudioPlayer *audioPlayer;
+}
 
+@property(nonatomic, weak, nullable) AVPlayerLayer *playerLayer;
 @end
 
 @implementation ChapterViewController
-@synthesize moviePage;
-@synthesize textPage;
-@synthesize  chapterDelegate= _chapterDelegate;
-@synthesize isFinalPage;
 
 +(void) initialize
 {
@@ -46,9 +54,9 @@ static BOOL isInitialized = FALSE;
 {
     [super viewWillDisappear:animated];
 
-    if ([player isPlaying])
+    if ([audioPlayer isPlaying])
     {
-        [player stop];
+        [audioPlayer stop];
     }
     
     // Specify that the cloud rollover should stop. This is to prevent the recursive animation method
@@ -60,69 +68,69 @@ static BOOL isInitialized = FALSE;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(textPage != nil)
+    if(self.textPage != nil)
     {
-        [self.bookPageView setImage:[UIImage imageWithContentsOfFile:textPage.textPagePath]];
+        [self.bookPageView setImage:[UIImage imageWithContentsOfFile:self.textPage.textPagePath]];
         
         // There are some pages which will choose to not display a background
-        if (textPage.backgroundPath != nil)
+        if (self.textPage.backgroundPath != nil)
         {
-            [self.bookPageBackgroundView setImage:[UIImage imageWithContentsOfFile:textPage.backgroundPath]];
+            [self.bookPageBackgroundView setImage:[UIImage imageWithContentsOfFile:self.textPage.backgroundPath]];
         }
 
         // Add the clouds to the screen if necessary
-        if(textPage.overlay == kBJCloundsOverlay)
+        if(self.textPage.overlay == kBJCloundsOverlay)
         {
             stopCloudRollover = FALSE;
             [self displayCloudAnimation];
         }
-        else if (textPage.overlay == kBJSnowOverlay)
+        else if (self.textPage.overlay == kBJSnowOverlay)
         {
             [self displaySnowAnimation];
         }
-        else if (textPage.overlay == kBJEmberOverlay )
+        else if (self.textPage.overlay == kBJEmberOverlay )
         {
             [self displayEmberAnimation];
         }
-        else if (textPage.overlay == kBJFireOverlay)
+        else if (self.textPage.overlay == kBJFireOverlay)
         {
             [self displayEmberAnimation];
             [self displayFogAnimation];
         }
-        else if (textPage.overlay == kBJMotesOverlay)
+        else if (self.textPage.overlay == kBJMotesOverlay)
         {
             [self displayMotesAnimation];
         }
-        else if (textPage.overlay == kBJIrrationalHypothermiaOverlay)
+        else if (self.textPage.overlay == kBJIrrationalHypothermiaOverlay)
         {
             [self displayIrrationalHypothermiaAnimation];
         }
-        else if (textPage.overlay == kBJCopLightOverlay)
+        else if (self.textPage.overlay == kBJCopLightOverlay)
         {
             [self displayCopLightAnimation];
         }
-        else if (textPage.overlay == kBJPageFadeIn)
+        else if (self.textPage.overlay == kBJPageFadeIn)
         {
             [self displayPageFadeIn];
         }
-        else if (textPage.overlay == kBJFogOverlay)
+        else if (self.textPage.overlay == kBJFogOverlay)
         {
             [self displayFogAnimation];
         }
         
         // play one time audio
-        if (textPage.oneTimeAudioURL != nil)
+        if (self.textPage.oneTimeAudioURL != nil)
         {
             // Play the audio
-            flourishTimer = [NSTimer scheduledTimerWithTimeInterval:textPage.oneTimeAudioDelay target:self
+            flourishTimer = [NSTimer scheduledTimerWithTimeInterval:self.textPage.oneTimeAudioDelay target:self
                                             selector:@selector(playTextPageAudio) userInfo:nil repeats:NO];
         }
         
         // play multi-page audio if necessary. Otherwise, make sure it is stopped.
-        if(textPage.multiPageTimeAudioURL != nil)
+        if(self.textPage.multiPageTimeAudioURL != nil)
         {
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate playMultiPageAudioFromURL:textPage.multiPageTimeAudioURL];
+            [appDelegate playMultiPageAudioFromURL:self.textPage.multiPageTimeAudioURL];
         }
         else
         {
@@ -133,18 +141,18 @@ static BOOL isInitialized = FALSE;
 
         
     }
-    else if (moviePage != nil)
+    else if (self.moviePage != nil)
     {
         // There are some pages which will choose to not display a background
-        if (moviePage.foregroundPath != nil)
+        if (self.moviePage.foregroundPath != nil)
         {
-            [self.bookPageView setImage:[UIImage imageWithContentsOfFile:moviePage.foregroundPath]];
+            [self.bookPageView setImage:[UIImage imageWithContentsOfFile:self.moviePage.foregroundPath]];
         }
-        if (moviePage.backgroundPath != nil)
+        if (self.moviePage.backgroundPath != nil)
         {
-            [self.bookPageBackgroundView setImage:[UIImage imageWithContentsOfFile:moviePage.backgroundPath]];
+            [self.bookPageBackgroundView setImage:[UIImage imageWithContentsOfFile:self.moviePage.backgroundPath]];
         }
-        if (moviePage.movieURL != nil)
+        if (self.moviePage.movieURL != nil)
         {
             [self playMainMovie];
         }
@@ -156,13 +164,13 @@ static BOOL isInitialized = FALSE;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if(textPage != nil)
+    if(self.textPage != nil)
     {
-        if ([textPage displayFlourish]){
+        if ([self.textPage displayFlourish]){
             flourishTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
                                                              selector:@selector(displayFlourish) userInfo:nil repeats:NO];
         }
-        else if (textPage.overlay == kBJPixieOverlay)
+        else if (self.textPage.overlay == kBJPixieOverlay)
         {
             flourishTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self
                                                             selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO];
@@ -206,7 +214,7 @@ static BOOL isInitialized = FALSE;
 
 -(IBAction)shareAndSpeculateButtonPress
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/BlackJackAMovingNovel"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/BlackJackAMovingNovel"] options:@{} completionHandler:nil];
 }
 
 -(IBAction)notesButtonPress
@@ -277,80 +285,84 @@ static BOOL isInitialized = FALSE;
 
 - (void)playMainMovie
 {
-    if (moviePlayer != nil)
+    if (self.playerLayer != nil)
     {
-        moviePlayer = nil;
+        self.playerLayer = nil;
     }
-    
-    moviePlayer=[[MPMoviePlayerController alloc] initWithContentURL:moviePage.movieURL];
-    [moviePlayer.view setFrame:self.view.frame];
-    [moviePlayer prepareToPlay];
-    [moviePlayer setShouldAutoplay:TRUE];
-    [moviePlayer setControlStyle:MPMovieControlStyleNone];
-    
-    // Set repeat based on setting
-    if (moviePage.repeat)
-    {
-        [moviePlayer setRepeatMode:MPMovieRepeatModeOne];
-    }
+
+    AVAsset *asset = [AVAsset assetWithURL: self.moviePage.movieURL];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    playerLayer.frame = self.view.frame;
+
+    // configure the player
+    [player seekToTime:kCMTimeZero];
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0,0,561,1024)];
     [button addTarget:self action:@selector(openMenu) forControlEvents:UIControlEventTouchUpInside];
     
-    [moviePlayer.view addSubview:button];
-    [moviePlayer.view addSubview:self.menuView];
-    [self.view addSubview:moviePlayer.view];
-
-    
-    // Play audio
-    player = [[AVAudioPlayer alloc]
-              initWithContentsOfURL:moviePage.audioURL
-              error:nil];
-    [player play];
+    [self.view addSubview:button];
+    [self.view addSubview:self.menuView];
 
     // Register to receive a notification when the movie has finished playing.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:moviePlayer];
-    
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:player];
 
+    [self.view.layer addSublayer:playerLayer];
+    [player play];
+
+    
+    // Play audio
+    audioPlayer = [[AVAudioPlayer alloc]
+              initWithContentsOfURL:self.moviePage.audioURL
+              error:nil];
+    [player play];
 }
 
 - (void) moviePlayBackDidFinish : (NSNotification *) notification
 {
-    int reason = [[[notification userInfo] valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (reason == MPMovieFinishReasonPlaybackEnded) {
-        [moviePlayer stop];
-        [moviePlayer.view removeFromSuperview];
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:MPMoviePlayerPlaybackDidFinishNotification
-                                                      object:moviePlayer];
-        
-        // If we finished playing the movie and the backgound should fade, fade it now
-        if (moviePage.fadeBackground)
-        {
-            if (isFinalPage)
-            {
-                alertWorkFlowState = NSBJAlertWorkFlowFinishedChapter;
-                [self manageAlertWorkflow];
-            }
-            // Now perform the animation
-		            [UIView animateWithDuration:5
-                                  delay:0
-                                options: UIViewAnimationOptionCurveEaseOut
-                             animations:^{
-                                 self.bookPageView.alpha = 0;
-                             }
-                             completion:^(BOOL finished){
-                             }];
-            
-        }
-        if (moviePage.autoPageTurn)
-        {
-            [self.chapterDelegate gotoNextPage];
-        }
+    AVPlayer *player = (AVPlayer *)notification.object;
+
+    // Set repeat based on setting
+    if (self.moviePage.repeat) {
+        [player seekToTime:kCMTimeZero];
+    } else {
+
+        [player pause];
+//        [moviePlayer.view removeFromSuperview];
+//        [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                        name:MPMoviePlayerPlaybackDidFinishNotification
+//                                                      object:moviePlayer];
+//
+//        // If we finished playing the movie and the backgound should fade, fade it now
+//        if (moviePage.fadeBackground)
+//        {
+//            if (isFinalPage)
+//            {
+//                alertWorkFlowState = NSBJAlertWorkFlowFinishedChapter;
+//                [self manageAlertWorkflow];
+//            }
+//            // Now perform the animation
+//		            [UIView animateWithDuration:5
+//                                  delay:0
+//                                options: UIViewAnimationOptionCurveEaseOut
+//                             animations:^{
+//                                 self.bookPageView.alpha = 0;
+//                             }
+//                             completion:^(BOOL finished){
+//                             }];
+//
+//        }
+//        if (moviePage.autoPageTurn)
+//        {
+//            [self.chapterDelegate gotoNextPage];
+//        }
     }
 }
 
@@ -424,10 +436,10 @@ static BOOL isInitialized = FALSE;
 -(void)playTextPageAudio
 {
     // Play audio
-    player = [[AVAudioPlayer alloc]
-              initWithContentsOfURL:textPage.oneTimeAudioURL
+    audioPlayer = [[AVAudioPlayer alloc]
+              initWithContentsOfURL:self.textPage.oneTimeAudioURL
               error:nil];
-    [player play];    
+    [audioPlayer play];    
 }
             
 -(void)displayFlourish
@@ -437,7 +449,7 @@ static BOOL isInitialized = FALSE;
     BOOL continueLoop = TRUE;
     int arraySize=-1;
     for (int i=0;continueLoop;i++) {
-        NSString *flourishImage = [NSString stringWithFormat:@"%@%04d", textPage.flourishName, i];
+        NSString *flourishImage = [NSString stringWithFormat:@"%@%04d", self.textPage.flourishName, i];
         UIImage *image = [UIImage imageNamed:flourishImage];
         if (image != nil)
         {
@@ -453,7 +465,7 @@ static BOOL isInitialized = FALSE;
     // position and size the animated image on the page
     UIImage *finalImage = [flourishImages objectAtIndex:arraySize];
     
-    CGRect newFrame = CGRectMake(textPage.flourishXAxis, textPage.flourishYAxis, finalImage.size.width, finalImage.size.height);
+    CGRect newFrame = CGRectMake(self.textPage.flourishXAxis, self.textPage.flourishYAxis, finalImage.size.width, finalImage.size.height);
     self.flourishView.frame = newFrame;
     
     self.flourishView.animationImages = flourishImages;
