@@ -11,8 +11,8 @@
 
 @interface TableOfContentsViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
 
-@property (nonatomic, retain) IBOutlet iCarousel *carousel;
-@property (retain, nonatomic) IBOutlet UIButton *closeButton;
+@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+@property (strong, nonatomic) IBOutlet UIButton *closeButton;
 -(IBAction)close;
 
 @end

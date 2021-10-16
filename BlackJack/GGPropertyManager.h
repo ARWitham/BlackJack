@@ -13,9 +13,9 @@
 +(BOOL) isFirstLaunch;
 +(void) incrementCurrentPageNumber;
 +(void) udpateProperty:(NSString*) propertyName withString:(NSString *) value;
-+(int) getCurrentPageNumber;
-+(void) setCurrentPageNumber:(int)inputCurrentPageNumber;
++(NSInteger) getCurrentPageNumber;
++(void) setCurrentPageNumber:(NSUInteger)inputCurrentPageNumber;
 +(void) incrementCurrentChapterNumber;
-+(int) getCurrentChapterNumber;
-+(void) setCurrentChapterNumber:(int)inputCurrentChapterNumber;
++(NSInteger) getCurrentChapterNumber;
++(void) setCurrentChapterNumber:(NSUInteger)inputCurrentChapterNumber;
 @end

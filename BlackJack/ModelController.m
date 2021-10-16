@@ -208,7 +208,7 @@
 {
     [self.modelDelegate turnPageAutomatically];
 }
--(void)loadPageDataForChapter:(int)inputChapter
+-(void)loadPageDataForChapter:(NSInteger)inputChapter
 {
     if(inputChapter == 0)
     {

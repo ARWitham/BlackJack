@@ -14,9 +14,9 @@
     BOOL isMultiPageAudioPlaying;
 }
 
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) UIViewController *viewController;
-@property (nonatomic, retain) AVAudioPlayer *multiPageAudioPlayer;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UIViewController *viewController;
+@property (nonatomic, strong) AVAudioPlayer *multiPageAudioPlayer;
 
 -(void)playMultiPageAudioFromURL:(NSURL *)audioURL;
 -(void)playMultiPageAudioFromPath:(NSString *)audioPath andType:(NSString *)audioFileType;

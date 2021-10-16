@@ -11,7 +11,7 @@
 
 @interface SwagViewController ()
 
-@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableArray *items;
 
 @end
 @implementation SwagViewController

@@ -17,31 +17,29 @@
 
 @protocol ChapterViewDelegate;
 
-enum {
+typedef NS_ENUM(NSUInteger, NSBJEndOfChapterState) {
     NSBJAlertWorkFlowFinishedChapter = 1,
     NSBJAlertWorkFlowDisplayedKeepReading = 2,
     NSBJAlertWorkFlowDisplayedLimitedOffer = 3,
     NSBJAlertWorkFlowDisplayedBOGO = 4,
     NSBJAlertWorkFlowDisplayedSwag = 5
 };
-typedef NSUInteger NSBJEndOfChapterState;
 
-enum {
+typedef NS_ENUM(NSUInteger, NSBJAlertViewButtonPressType) {
     NSBJAlertButtonPressOK = 1,
     NSBJAlertButtonPressCancel = 2
 };
-typedef NSUInteger NSBJAlertViewButtonPressType;
 
 @interface ChapterViewController : UIViewController <MainMenuDelegate, BlackJackAlertViewDelegate>
 
-@property (retain, nonatomic) IBOutlet MenuBarView *menuView;
+@property (strong, nonatomic) IBOutlet MenuBarView *menuView;
 @property (strong, nonatomic) IBOutlet UIImageView *bookPageView;
-@property (retain, nonatomic) IBOutlet UIImageView *bookPageBackgroundView;
-@property (retain, nonatomic) IBOutlet UIImageView *cloudsView;
+@property (strong, nonatomic) IBOutlet UIImageView *bookPageBackgroundView;
+@property (strong, nonatomic) IBOutlet UIImageView *cloudsView;
 @property (strong, nonatomic) MoviePageOfBook *moviePage;
 @property (strong, nonatomic) TextPageOfBook *textPage;
-@property (retain, nonatomic) IBOutlet UIView *myView;
-@property (retain, nonatomic) IBOutlet UIImageView *flourishView;
+@property (strong, nonatomic) IBOutlet UIView *myView;
+@property (strong, nonatomic) IBOutlet UIImageView *flourishView;
 @property (nonatomic, assign) id<ChapterViewDelegate> chapterDelegate;
 @property (nonatomic) BOOL isFinalPage;
 - (IBAction)openMenu;

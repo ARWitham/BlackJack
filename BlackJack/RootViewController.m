@@ -27,7 +27,7 @@
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.delegate = self;
 
-    int startingPageNumber=0;
+    NSInteger startingPageNumber=0;
     if (_returnToReading)
     {
         startingPageNumber = [GGPropertyManager getCurrentPageNumber];
@@ -88,8 +88,8 @@
 
 -(void)returntoLastPageRead
 {
-    int startingPageNumber=0;
-    int startingChapterNumber=0;
+    NSInteger startingPageNumber=0;
+    NSInteger startingChapterNumber=0;
     startingPageNumber = [GGPropertyManager getCurrentPageNumber];
     startingChapterNumber = [GGPropertyManager getCurrentChapterNumber];
     ChapterViewController *startingViewController = [self.modelController viewControllerAtIndex:startingPageNumber andChapter:startingChapterNumber storyboard:self.storyboard];
@@ -100,7 +100,7 @@
 
 -(void)turnPageAutomatically
 {
-    int currentPageNumber = [GGPropertyManager getCurrentPageNumber];
+    NSInteger currentPageNumber = [GGPropertyManager getCurrentPageNumber];
     ChapterViewController *startingViewController = [self.modelController viewControllerAtIndex:currentPageNumber+1 storyboard:self.storyboard];
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];

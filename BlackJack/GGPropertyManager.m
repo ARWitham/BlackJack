@@ -36,7 +36,7 @@ static NSString *bundlePath;
 +(void) incrementCurrentPageNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int retrievedValue = [defaults integerForKey:@"currentPageNumber"];
+    NSInteger retrievedValue = [defaults integerForKey:@"currentPageNumber"];
     
     // Increment the sequence number
     retrievedValue = retrievedValue+1;
@@ -44,41 +44,39 @@ static NSString *bundlePath;
     [defaults synchronize];
 }
 
-+(int) getCurrentPageNumber
++(NSInteger) getCurrentPageNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int retrievedValue = [defaults integerForKey:@"currentPageNumber"];
+    NSInteger retrievedValue = [defaults integerForKey:@"currentPageNumber"];
     
     return retrievedValue;
 }
 
-+(void) setCurrentPageNumber:(int)inputCurrentPageNumber
++(void) setCurrentPageNumber:(NSUInteger)inputCurrentPageNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:inputCurrentPageNumber forKey:@"currentPageNumber"];
-    [defaults synchronize];
 }
 
 +(void) incrementCurrentChapterNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int retrievedValue = [defaults integerForKey:@"currentChapterNumber"];
+    NSInteger retrievedValue = [defaults integerForKey:@"currentChapterNumber"];
     
     // Increment the sequence number
     retrievedValue = retrievedValue+1;
     [defaults setInteger:retrievedValue forKey:@"currentChapterNumber"];
-    [defaults synchronize];
 }
 
-+(int) getCurrentChapterNumber
++(NSInteger) getCurrentChapterNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int retrievedValue = [defaults integerForKey:@"currentChapterNumber"];
+    NSInteger retrievedValue = [defaults integerForKey:@"currentChapterNumber"];
     
     return retrievedValue;
 }
 
-+(void) setCurrentChapterNumber:(int)inputCurrentChapterNumber
++(void) setCurrentChapterNumber:(NSUInteger)inputCurrentChapterNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:inputCurrentChapterNumber forKey:@"currentChapterNumber"];
