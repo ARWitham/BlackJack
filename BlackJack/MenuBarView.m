@@ -17,7 +17,6 @@ static UIButton *shareAndSpeculateButton = nil;
 static UIButton *notesButton = nil;
 static UIButton *aboutTheAuthorButton = nil;
 static UIButton *dedicationButton = nil;
-static UIButton *swagButton = nil;
 static UIButton *returnToReadingButton = nil;
 static id<MainMenuDelegate> _menuDelegate;
 
@@ -40,7 +39,6 @@ static BOOL isInitialized = FALSE;
         notesButton               = [UIButton buttonWithType:UIButtonTypeCustom];
         aboutTheAuthorButton      = [UIButton buttonWithType:UIButtonTypeCustom];
         dedicationButton          = [UIButton buttonWithType:UIButtonTypeCustom];
-        swagButton                = [UIButton buttonWithType:UIButtonTypeCustom];
         returnToReadingButton     = [UIButton buttonWithType:UIButtonTypeCustom];
     
         // Set the frame for each button
@@ -51,8 +49,7 @@ static BOOL isInitialized = FALSE;
         [notesButton                        setFrame:CGRectMake(0,517,312,105)];
         [aboutTheAuthorButton               setFrame:CGRectMake(0,623,312,107)];
         [dedicationButton                   setFrame:CGRectMake(0,729,312, 84)];
-        [swagButton                         setFrame:CGRectMake(0,803,312, 81)];
-        [returnToReadingButton              setFrame:CGRectMake(0,945,312, 85)];
+        [returnToReadingButton              setFrame:CGRectMake(0,803,312, 81)];
 
         // Set background image for each button
         [mapButton                          setBackgroundImage:[UIImage imageNamed:@"Menu-Map.png"] forState:UIControlStateNormal];
@@ -62,7 +59,6 @@ static BOOL isInitialized = FALSE;
         [notesButton                        setBackgroundImage:[UIImage imageNamed:@"Menu-Notes.png"] forState:UIControlStateNormal];
         [aboutTheAuthorButton               setBackgroundImage:[UIImage imageNamed:@"Menu-AboutTheAuthor.png"] forState:UIControlStateNormal];
         [dedicationButton                   setBackgroundImage:[UIImage imageNamed:@"Menu-Dedication.png"] forState:UIControlStateNormal];
-        [swagButton                         setBackgroundImage:[UIImage imageNamed:@"Menu-Swag.png"] forState:UIControlStateNormal];
         [returnToReadingButton              setBackgroundImage:[UIImage imageNamed:@"Menu-ReturnToReading.png"] forState:UIControlStateNormal];
     
         // Add targets for button press actions
@@ -73,7 +69,6 @@ static BOOL isInitialized = FALSE;
         [notesButton                        addTarget:_menuDelegate action:@selector(notesButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [aboutTheAuthorButton               addTarget:_menuDelegate action:@selector(aboutTheAuthorButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [dedicationButton                   addTarget:_menuDelegate action:@selector(dedicationButtonPress) forControlEvents:UIControlEventTouchUpInside];
-        [swagButton                         addTarget:_menuDelegate action:@selector(swagButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [returnToReadingButton              addTarget:_menuDelegate action:@selector(returnToReadingButtonPress) forControlEvents:UIControlEventTouchUpInside];
         
         isInitialized = TRUE;
@@ -106,7 +101,6 @@ static BOOL isInitialized = FALSE;
     [self addSubview:notesButton];
     [self addSubview:aboutTheAuthorButton];
     [self addSubview:dedicationButton];
-    [self addSubview:swagButton];
     
     if(!self.hideReturnToReading)
     {
