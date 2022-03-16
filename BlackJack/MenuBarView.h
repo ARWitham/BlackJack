@@ -29,7 +29,6 @@
 -(IBAction)notesButtonPress;
 -(IBAction)aboutTheAuthorButtonPress;
 -(IBAction)dedicationButtonPress;
--(IBAction)swagButtonPress;
 -(IBAction)returnToReadingButtonPress;
 
 @end
