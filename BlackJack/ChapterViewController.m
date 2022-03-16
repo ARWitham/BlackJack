@@ -281,14 +281,14 @@ static BOOL isInitialized = FALSE;
     {
         self.playerLayer = nil;
     }
-
+    
     AVAsset *asset = [AVAsset assetWithURL: self.moviePage.movieURL];
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     playerLayer.frame = self.view.frame;
-
+    
     // configure the player
     [player seekToTime:kCMTimeZero];
     player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
@@ -299,62 +299,62 @@ static BOOL isInitialized = FALSE;
     
     [self.view addSubview:button];
     [self.view addSubview:self.menuView];
-
+    
     // Register to receive a notification when the movie has finished playing.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackDidFinish:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:player];
-
+    
     [self.view.layer addSublayer:playerLayer];
     [player play];
-
+    
     
     // Play audio
     audioPlayer = [[AVAudioPlayer alloc]
-              initWithContentsOfURL:self.moviePage.audioURL
-              error:nil];
+                   initWithContentsOfURL:self.moviePage.audioURL
+                   error:nil];
     [player play];
 }
 
 - (void) moviePlayBackDidFinish : (NSNotification *) notification
 {
     AVPlayer *player = (AVPlayer *)notification.object;
-
+    
     // Set repeat based on setting
     if (self.moviePage.repeat) {
         [player seekToTime:kCMTimeZero];
     } else {
-
+        
         [player pause];
-//        [moviePlayer.view removeFromSuperview];
-//        [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                        name:MPMoviePlayerPlaybackDidFinishNotification
-//                                                      object:moviePlayer];
-//
-//        // If we finished playing the movie and the backgound should fade, fade it now
-//        if (moviePage.fadeBackground)
-//        {
-//            if (isFinalPage)
-//            {
-//                alertWorkFlowState = NSBJAlertWorkFlowFinishedChapter;
-//                [self manageAlertWorkflow];
-//            }
-//            // Now perform the animation
-//		            [UIView animateWithDuration:5
-//                                  delay:0
-//                                options: UIViewAnimationOptionCurveEaseOut
-//                             animations:^{
-//                                 self.bookPageView.alpha = 0;
-//                             }
-//                             completion:^(BOOL finished){
-//                             }];
-//
-//        }
-//        if (moviePage.autoPageTurn)
-//        {
-//            [self.chapterDelegate gotoNextPage];
-//        }
+        //        [moviePlayer.view removeFromSuperview];
+        //        [[NSNotificationCenter defaultCenter] removeObserver:self
+        //                                                        name:MPMoviePlayerPlaybackDidFinishNotification
+        //                                                      object:moviePlayer];
+        //
+        //        // If we finished playing the movie and the backgound should fade, fade it now
+        //        if (moviePage.fadeBackground)
+        //        {
+        //            if (isFinalPage)
+        //            {
+        //                alertWorkFlowState = NSBJAlertWorkFlowFinishedChapter;
+        //                [self manageAlertWorkflow];
+        //            }
+        //            // Now perform the animation
+        //                    [UIView animateWithDuration:5
+        //                                  delay:0
+        //                                options: UIViewAnimationOptionCurveEaseOut
+        //                             animations:^{
+        //                                 self.bookPageView.alpha = 0;
+        //                             }
+        //                             completion:^(BOOL finished){
+        //                             }];
+        //
+        //        }
+        //        if (moviePage.autoPageTurn)
+        //        {
+        //            [self.chapterDelegate gotoNextPage];
+        //        }
     }
 }
 
@@ -363,7 +363,7 @@ static BOOL isInitialized = FALSE;
     alertView = [[BlackJackAlertView alloc] init];
     [alertView setBackgroundColor:[UIColor clearColor]];
     alertView.delegate = self;
-
+    
     if (alertWorkFlowState == NSBJAlertWorkFlowFinishedChapter)
     {
         [alertView setSelectedAlertOption:NSBJBuyChapter2];
@@ -406,7 +406,7 @@ static BOOL isInitialized = FALSE;
             alertWorkFlowState = NSBJAlertWorkFlowDisplayedSwag;
         }
     }
-
+    
     alertView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [self.view addSubview:alertView];
 }
@@ -429,11 +429,11 @@ static BOOL isInitialized = FALSE;
 {
     // Play audio
     audioPlayer = [[AVAudioPlayer alloc]
-              initWithContentsOfURL:self.textPage.oneTimeAudioURL
-              error:nil];
+                   initWithContentsOfURL:self.textPage.oneTimeAudioURL
+                   error:nil];
     [audioPlayer play];    
 }
-            
+
 -(void)displayFlourish
 {
     // Build an array of images based on the image sequence name
@@ -512,8 +512,8 @@ static BOOL isInitialized = FALSE;
     // Set up the timer. Should kick off between 12 and 20 seconds later
     int nextInterval = arc4random_uniform(8)+12;
     flourishTimer = [NSTimer scheduledTimerWithTimeInterval:nextInterval target:self
-                                                    selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO];
-
+                                                   selector:@selector(displayPixieAnimation) userInfo:nil repeats:NO];
+    
 }
 
 -(void)displayCloudAnimation
@@ -539,7 +539,7 @@ static BOOL isInitialized = FALSE;
     self.cloudsView.animationImages = flourishImages;
     self.cloudsView.animationDuration = arraySize/6; // the image sequence should have been rendered at 6 FPS because 24fps is hyperactive
     self.cloudsView.animationRepeatCount = 0; // 0 = loops forever
-//    self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
+    //    self.cloudsView.image = [flourishImages objectAtIndex:arraySize];
     [self.cloudsView startAnimating];
 }
 
@@ -619,7 +619,7 @@ static BOOL isInitialized = FALSE;
     
     CGRect newFrame = CGRectMake(0, 0, 768, 1024);
     self.flourishView.frame = newFrame;
-
+    
     self.flourishView.animationImages = flourishImages;
     self.flourishView.animationDuration = arraySize/24; // the image sequence should have been rendered at 24 FPS
     self.flourishView.animationRepeatCount = 0; // 0 = loops forever
@@ -718,10 +718,10 @@ static BOOL isInitialized = FALSE;
                           delay: 0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         self.bookPageView.alpha = 1;
-                     }
+        self.bookPageView.alpha = 1;
+    }
                      completion:^(BOOL finished){
-                     }];
+    }];
 }
 
 
