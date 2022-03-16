@@ -238,14 +238,6 @@ static BOOL isInitialized = FALSE;
     [self performSegueWithIdentifier: @"GotoMenuSegue" sender: self];
 }
 
--(IBAction)swagButtonPress
-{
-    [self stopEverything];
-    bjMainMenuOption = NSBJMainMenuSwag;
-    [self performSegueWithIdentifier: @"GotoSwagSegue" sender: self];
-
-}
-
 -(IBAction)returnToReadingButtonPress
 {
     [self stopEverything];
