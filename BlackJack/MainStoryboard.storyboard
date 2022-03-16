@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="O8B-gc-yde">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O8B-gc-yde">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +12,6 @@
         <scene sceneID="p0K-2I-LL1">
             <objects>
                 <viewController id="O8B-gc-yde" customClass="BookCoverViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cSQ-Si-lmW"/>
-                        <viewControllerLayoutGuide type="bottom" id="wlL-u1-lii"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qOs-vA-DKo">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -28,44 +25,38 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="VYn-5H-t2w"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="bookCoverImage" destination="7co-6M-e6H" id="VQl-RI-XkO"/>
                         <outlet property="relaxImageView" destination="bOo-Jm-McK" id="FNK-ub-Bta"/>
-                        <segue destination="2" kind="modal" identifier="OpenBookSegue" modalTransitionStyle="flipHorizontal" id="8Uk-Xq-Jv3"/>
+                        <segue destination="2" kind="presentation" identifier="OpenBookSegue" modalTransitionStyle="flipHorizontal" id="8Uk-Xq-Jv3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndi-Lt-cpi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1632.03125" y="-115.42968749999999"/>
+            <point key="canvasLocation" x="-1275.0244140625" y="-67.634582519531236"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="4">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="2" customClass="RootViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zSY-E0-T8k"/>
-                        <viewControllerLayoutGuide type="bottom" id="yU7-C3-RqE"/>
-                    </layoutGuides>
+                <viewController id="2" customClass="RootViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fNC-Ky-qeh"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39.84375" y="729.4921875"/>
+            <point key="canvasLocation" x="-31.1279296875" y="427.43682861328125"/>
         </scene>
         <!--Black Jack View Controller-->
         <scene sceneID="uB8-nh-Mlm">
             <objects>
                 <viewController id="6re-iD-Hij" customClass="BlackJackViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kn5-Ku-cou"/>
-                        <viewControllerLayoutGuide type="bottom" id="Vkx-E3-cfn"/>
-                    </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="taq-hN-207">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -111,6 +102,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="O39-BY-YxV"/>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -120,21 +112,17 @@
                         <outlet property="menuView" destination="IRE-zk-ACo" id="OyH-KA-eWG"/>
                         <outlet property="notesImage" destination="Itr-kp-Umq" id="CRT-bE-icR"/>
                         <outlet property="notesText" destination="BPR-Hs-VDb" id="Bka-YI-8RL"/>
-                        <segue destination="2" kind="modal" identifier="GotoChapterSegue" modalTransitionStyle="crossDissolve" id="auH-B2-dZm"/>
+                        <segue destination="2" kind="presentation" identifier="GotoChapterSegue" modalTransitionStyle="crossDissolve" id="auH-B2-dZm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0qD-VQ-teL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585.9375" y="-548.4375"/>
+            <point key="canvasLocation" x="-457.763671875" y="-321.35009765625"/>
         </scene>
         <!--Table Of Contents View Controller-->
         <scene sceneID="5Yl-84-UEB">
             <objects>
                 <viewController id="hkM-fe-2lq" customClass="TableOfContentsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tZi-yh-1eS"/>
-                        <viewControllerLayoutGuide type="bottom" id="HLB-7f-IdV"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nlp-I5-T5U">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,6 +155,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="xWD-FA-RQl"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -177,16 +166,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXi-KG-vGj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="250" y="-939.25781249999989"/>
+            <point key="canvasLocation" x="195.3125" y="-550.34637451171864"/>
         </scene>
         <!--Chapter View Controller-->
         <scene sceneID="7">
             <objects>
                 <viewController storyboardIdentifier="ChapterViewController" wantsFullScreenLayout="YES" id="5" customClass="ChapterViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fFU-hF-Kka"/>
-                        <viewControllerLayoutGuide type="bottom" id="Zz4-WQ-Bt9"/>
-                    </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="12">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -228,6 +213,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Izo-45-TBX"/>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -238,23 +224,19 @@
                         <outlet property="flourishView" destination="m65-y7-SPg" id="YM4-64-Co0"/>
                         <outlet property="menuView" destination="okn-mK-YAh" id="V10-eg-REm"/>
                         <outlet property="myView" destination="12" id="4aA-rm-hYO"/>
-                        <segue destination="6re-iD-Hij" kind="modal" identifier="GotoMenuSegue" id="ZQe-7y-j1M"/>
-                        <segue destination="hkM-fe-2lq" kind="modal" identifier="GotoTOCSegue" id="5tu-p3-L4M"/>
-                        <segue destination="1Mi-rA-0L1" kind="modal" identifier="GotoSwagSegue" id="wVJ-p1-TyA"/>
+                        <segue destination="6re-iD-Hij" kind="presentation" identifier="GotoMenuSegue" id="ZQe-7y-j1M"/>
+                        <segue destination="hkM-fe-2lq" kind="presentation" identifier="GotoTOCSegue" id="5tu-p3-L4M"/>
+                        <segue destination="1Mi-rA-0L1" kind="presentation" identifier="GotoSwagSegue" id="wVJ-p1-TyA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="621.875" y="-152.9296875"/>
+            <point key="canvasLocation" x="485.83984375" y="-89.60723876953125"/>
         </scene>
         <!--Swag View Controller-->
         <scene sceneID="Y9f-A1-bOH">
             <objects>
                 <viewController id="1Mi-rA-0L1" customClass="SwagViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yuf-iJ-xeZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="YJQ-wT-E3X"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rA8-qC-24E">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -292,6 +274,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Qt-RY-PqM"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
@@ -302,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmX-zQ-uKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="753.125" y="757.03125"/>
+            <point key="canvasLocation" x="588.37890625" y="443.572998046875"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
