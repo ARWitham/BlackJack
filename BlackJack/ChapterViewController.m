@@ -12,7 +12,6 @@
 #import "TextPageOfBook.h"
 #import "BlackJackViewController.h"
 #import "RootViewController.h"
-//#import "ModelController.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 static CGRect initialCloudViewRect, normalCloudViewRect, currentCloudView1Rect, currentCloudView2Rect;
@@ -325,36 +324,7 @@ static BOOL isInitialized = FALSE;
     if (self.moviePage.repeat) {
         [player seekToTime:kCMTimeZero];
     } else {
-        
         [player pause];
-        //        [moviePlayer.view removeFromSuperview];
-        //        [[NSNotificationCenter defaultCenter] removeObserver:self
-        //                                                        name:MPMoviePlayerPlaybackDidFinishNotification
-        //                                                      object:moviePlayer];
-        //
-        //        // If we finished playing the movie and the backgound should fade, fade it now
-        //        if (moviePage.fadeBackground)
-        //        {
-        //            if (isFinalPage)
-        //            {
-        //                alertWorkFlowState = NSBJAlertWorkFlowFinishedChapter;
-        //                [self manageAlertWorkflow];
-        //            }
-        //            // Now perform the animation
-        //                    [UIView animateWithDuration:5
-        //                                  delay:0
-        //                                options: UIViewAnimationOptionCurveEaseOut
-        //                             animations:^{
-        //                                 self.bookPageView.alpha = 0;
-        //                             }
-        //                             completion:^(BOOL finished){
-        //                             }];
-        //
-        //        }
-        //        if (moviePage.autoPageTurn)
-        //        {
-        //            [self.chapterDelegate gotoNextPage];
-        //        }
     }
 }
 
@@ -723,63 +693,5 @@ static BOOL isInitialized = FALSE;
                      completion:^(BOOL finished){
     }];
 }
-
-
-/* No longer needed, but kiiling around just in case.
- -(void)setupCloudRollover
- {
- UIImage *cloudOverlayImage = [UIImage imageNamed:@"Clouds_Overlay_4176.png"];
- cloudOverlayImageView1 = [[UIImageView alloc] initWithImage: cloudOverlayImage];
- cloudOverlayImageView2 = [[UIImageView alloc] initWithImage: cloudOverlayImage];
- cloudOverlayImageView1.alpha = .085;
- cloudOverlayImageView2.alpha = .085;
- 
- // Add the cloud image and set coordinates appropriately
- [self.view addSubview:cloudOverlayImageView1];
- [self.view addSubview:cloudOverlayImageView2];
- 
- cloudOverlayImageView1.frame = currentCloudView1Rect;
- cloudOverlayImageView2.frame = currentCloudView2Rect;
- }
- 
- 
- -(void)animateCloudRollover
- {
- currentCloudView1Rect.origin.x = currentCloudView1Rect.origin.x+48;
- currentCloudView2Rect.origin.x = currentCloudView2Rect.origin.x+48;
- cloudOverlayImageView1.hidden = FALSE;
- cloudOverlayImageView2.hidden = FALSE;
- 
- // If the last animation moved one of the image views off screen right, reposition to the
- // far left so it can start its animation life over
- if (currentCloudView1Rect.origin.x >= 768)
- {
- currentCloudView1Rect.origin.x = -7584;
- cloudOverlayImageView1.hidden = TRUE;
- }
- if (currentCloudView2Rect.origin.x >= 768)
- {
- currentCloudView2Rect.origin.x = -7584;
- cloudOverlayImageView2.hidden = TRUE;
- }
- 
- // Now perform the animation
- [UIView animateWithDuration:2.0
- delay:0
- options: UIViewAnimationOptionCurveLinear
- animations:^{
- cloudOverlayImageView1.frame = currentCloudView1Rect;
- cloudOverlayImageView2.frame = currentCloudView2Rect;
- }
- completion:^(BOOL finished){
- // Finish animating the cloud off the screen
- if (!stopCloudRollover)
- {
- [self animateCloudRollover];
- }
- }];
- }
- */
-
 
 @end
