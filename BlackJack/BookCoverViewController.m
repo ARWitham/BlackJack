@@ -79,7 +79,7 @@
         displayedFirstTime = TRUE;
     } else if (!displayedAudioWarning) {
         self.alertView = [[BlackJackAlertView alloc] initWithOption:NSBJAudioAnnouncement];
-        [self.alertView setBackgroundColor:[UIColor yellowColor]];
+        [self.alertView setBackgroundColor:[UIColor blackColor]];
         self.alertView.delegate = self;
         self.alertView.center = self.view.center;
         self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
