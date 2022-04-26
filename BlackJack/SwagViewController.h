@@ -11,8 +11,8 @@
 
 @interface SwagViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
 
-@property (nonatomic, retain) IBOutlet iCarousel *carousel;
-@property (retain, nonatomic) IBOutlet UIButton *closeDetailedImageButton;
-@property (retain, nonatomic) IBOutlet UIImageView *detailImageView;
+@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+@property (strong, nonatomic) IBOutlet UIButton *closeDetailedImageButton;
+@property (strong, nonatomic) IBOutlet UIImageView *detailImageView;
 -(IBAction) closeDetailButtonPress;
 @end

@@ -14,9 +14,6 @@
 @class ChapterViewController;
 
 @interface ModelController : NSObject <ChapterViewDelegate, UIPageViewControllerDataSource>
-{
-    id<ModelControllerDelegate> _modelDelegate;
-}
 
 - (ChapterViewController *)viewControllerAtIndex:(NSUInteger)index andChapter:(NSUInteger)chapter storyboard:(UIStoryboard *)storyboard;
 - (ChapterViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;

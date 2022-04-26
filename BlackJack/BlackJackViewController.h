@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "MenuBarView.h"
 
-enum {
+typedef NS_ENUM(NSUInteger, NSBJMenuOption) {
     NSBJMainMenuMap = 1,
     NSBJMainMenuTitle = 2,
     NSBJMainMenuNotes = 3,
@@ -20,19 +20,18 @@ enum {
     NSBJMainMenuTableOfContents=7,
     NSBJMainMenuSwag=8
 };
-typedef NSUInteger NSBJMenuOption;
 
 
 @interface BlackJackViewController : UIViewController <MainMenuDelegate>
 {
     BOOL isMenuDisplayed;
 }
-@property (retain, nonatomic) IBOutlet UIImageView *backgroundImage;
-@property (retain, nonatomic) IBOutlet UIImageView *notesImage;
-@property (retain, nonatomic) IBOutlet UITextView *notesText;
-@property (retain, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) IBOutlet UIImageView *notesImage;
+@property (strong, nonatomic) IBOutlet UITextView *notesText;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
-@property (retain, nonatomic) IBOutlet MenuBarView *menuView;
+@property (strong, nonatomic) IBOutlet MenuBarView *menuView;
 @property (nonatomic) NSBJMenuOption menuOption;
 
 -(IBAction)toggleMenu;

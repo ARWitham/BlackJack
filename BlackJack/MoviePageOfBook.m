@@ -35,22 +35,22 @@
         
         // Build movie URL
         NSString *moviePath = [[NSBundle mainBundle] pathForResource:inputPath ofType:inputFileType];
-        movieURL = [[NSURL fileURLWithPath:moviePath] retain];
+        movieURL = [NSURL fileURLWithPath:moviePath];
         
         // Build audio URL
         audioURL=nil;
         if (inputOneTimeAudioPath != nil)
         {
             NSString *audioPath = [[NSBundle mainBundle] pathForResource:inputOneTimeAudioPath ofType:inputOneTimeAudioFileType];
-            audioURL = [[NSURL fileURLWithPath:audioPath] retain];
+            audioURL = [NSURL fileURLWithPath:audioPath];
         }
         if (inputForegroundImageFilePath != nil)
         {
-            foregroundPath = [[[NSBundle mainBundle] pathForResource:inputForegroundImageFilePath ofType:inputForegroundImageFileType] retain];
+            foregroundPath = [[NSBundle mainBundle] pathForResource:inputForegroundImageFilePath ofType:inputForegroundImageFileType];
         }
         if (inputBackgroundImageFilePath != nil)
         {
-            backgroundPath = [[[NSBundle mainBundle] pathForResource:inputBackgroundImageFilePath ofType:inputBackgroundImageFileType] retain];
+            backgroundPath = [[NSBundle mainBundle] pathForResource:inputBackgroundImageFilePath ofType:inputBackgroundImageFileType];
         }
 
     }

@@ -52,12 +52,6 @@
 @synthesize  modelDelegate= _modelDelegate;
 @synthesize currentChapterNumber;
 
-- (void)dealloc
-{
-    [_pageData release];
-    [super dealloc];
-}
-
 - (id)init
 {
     _pageData = [Chapter0Controller getChapterArray];
@@ -214,7 +208,7 @@
 {
     [self.modelDelegate turnPageAutomatically];
 }
--(void)loadPageDataForChapter:(int)inputChapter
+-(void)loadPageDataForChapter:(NSInteger)inputChapter
 {
     if(inputChapter == 0)
     {

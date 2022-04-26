@@ -15,8 +15,6 @@
     [dst viewWillAppear:NO];
     [dst viewDidAppear:NO];
     
-    [src retain];
-    
     [src.view addSubview:dst.view];
     
     CGRect original = dst.view.frame;
@@ -34,6 +32,5 @@
     UINavigationController *nav = [[self sourceViewController] navigationController];
     [nav popViewControllerAnimated:NO];
     [nav pushViewController:dst animated:NO];
-    [[self sourceViewController] release];
 }
 @end

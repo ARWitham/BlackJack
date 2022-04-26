@@ -12,84 +12,83 @@
 #import "GGPropertyManager.h"
 #import "AppDelegate.h"
 
-@interface BookCoverViewController ()
-
-@end
-
 @implementation BookCoverViewController
-//@synthesize alertView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    slowIntroTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self
-                                                    selector:@selector(launchPage) userInfo:nil repeats:NO]
-                     retain];
+    slowIntroTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
+                                                    selector:@selector(launchPage) userInfo:nil repeats:NO];
 }
+
 -(void)displayMovie
 {
     // here's the real deal
     NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"BookCoverLoop_H264" ofType:@"mov"];
-    NSURL *movieURL = [[NSURL fileURLWithPath:moviePath] retain];
+    NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
 
-	// Do any additional setup after loading the view.
-    moviePlayer=[[MPMoviePlayerController alloc] initWithContentURL:movieURL];
-    [moviePlayer.view setFrame:self.view.frame];
-    [moviePlayer prepareToPlay];
-    [moviePlayer setShouldAutoplay:TRUE];
-    [moviePlayer setControlStyle:MPMovieControlStyleNone];
-    [moviePlayer setRepeatMode:MPMovieRepeatModeOne];
-    
+    AVAsset *asset = [AVAsset assetWithURL:movieURL];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    playerLayer.frame = self.view.frame;
+
+    // configure the player
+    [player seekToTime:kCMTimeZero];
+    player.volume = 0;
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0,0,768,1024)];
     [button addTarget:self action:@selector(openBook) forControlEvents:UIControlEventTouchUpInside];
-    
-    [moviePlayer.view addSubview:button];
-    [moviePlayer.view addSubview:self.menuView];
-    [self.view addSubview:moviePlayer.view];
-    
+
+    [self.view addSubview:self.menuView];
+    [self.view addSubview:button];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object: player.currentItem];
+
+    [self.view.layer addSublayer:playerLayer];
+    [player play];
+
     // Play audio
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Cover Loop" ofType:@"wav"];
-    NSURL *audioURL = [[NSURL fileURLWithPath:audioPath] retain];
+    NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
     audioPlayer = [[AVAudioPlayer alloc]
               initWithContentsOfURL:audioURL
               error:nil];
     [audioPlayer play];
-    
+
     // this will go somehwere else eventually
     self.relaxImageView.hidden = TRUE;
 }
 
+-(void)playerItemDidReachEnd: (NSNotification *) notification {
+    AVPlayerItem *playerItem = (AVPlayerItem *) notification.object;
+    [playerItem seekToTime:kCMTimeZero completionHandler:nil];
+}
+
 -(void)launchPage
 {
-    if ([GGPropertyManager isFirstLaunch])
-    {
-        CGRect frame = CGRectMake(0, 0, 768, 1024);
-        alertView = [[BlackJackAlertView alloc] initWithFrame:frame];
-        [alertView setSelectedAlertOption:NSBJFirstLaunch];
-        [alertView setBackgroundColor:[UIColor clearColor]];
-        alertView.delegate = self;
-        [self.view addSubview:alertView];
+    if ([GGPropertyManager isFirstLaunch]) {
+        self.alertView = [[BlackJackAlertView alloc] initWithOption: NSBJFirstLaunch];
+        [self.alertView setBackgroundColor:[UIColor clearColor]];
+        self.alertView.delegate = self;
+        self.alertView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        [self.view addSubview:self.alertView];
         displayedFirstTime = TRUE;
-    }
-    else if (!displayedAudioWarning)
-    {
-        CGRect frame = CGRectMake(0, 0, 768, 1024);
-        alertView = [[BlackJackAlertView alloc] initWithFrame:frame];
-        [alertView setSelectedAlertOption:NSBJAudioAnnouncement];
-        [alertView setBackgroundColor:[UIColor clearColor]];
-        alertView.delegate = self;
-        alertView.center = self.view.center;
-        [self.view addSubview:alertView];
+    } else if (!displayedAudioWarning) {
+        self.alertView = [[BlackJackAlertView alloc] initWithOption:NSBJAudioAnnouncement];
+        [self.alertView setBackgroundColor:[UIColor blackColor]];
+        self.alertView.delegate = self;
+        self.alertView.center = self.view.center;
+        self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:self.alertView];
+        [self.view bringSubviewToFront:self.alertView];
+        [self.view.leadingAnchor constraintEqualToAnchor:self.alertView.leadingAnchor].active = YES;
+        [self.view.trailingAnchor constraintEqualToAnchor:self.alertView.trailingAnchor].active = YES;
+        [self.view.safeAreaLayoutGuide.topAnchor constraintEqualToAnchor:self.alertView.topAnchor].active = YES;
+        [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.alertView.bottomAnchor].active = YES;
         displayedAudioWarning = TRUE;
     }
 }
@@ -97,17 +96,12 @@
 
 -(IBAction)openBook
 {
-    [moviePlayer stop];
-    
-    [moviePlayer.view removeFromSuperview];
-    [moviePlayer release];
-
     // Fade fire audio audio
     [self doFireAudioFade];
 
     // Play the book creak
     NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"Book Creak" ofType:@"wav"];
-    NSURL *audioURL = [[NSURL fileURLWithPath:audioPath] retain];
+    NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
     AVAudioPlayer *creakAudioPlayer = [[AVAudioPlayer alloc]
                           initWithContentsOfURL:audioURL
                           error:nil];
@@ -116,6 +110,7 @@
     [self performSegueWithIdentifier: @"OpenBookSegue" sender: self];
     
 }
+
 -(void)doFireAudioFade
 {
     if (audioPlayer.volume > 0.1) {
@@ -127,21 +122,15 @@
     }
 }
 
-- (void)dealloc {
-    [_bookCoverImage release];
-    [_relaxImageView release];
-    [alertView release];
-    [super dealloc];
-}
-- (void)viewDidUnload {
+- (void)viewDidDisappear:(BOOL)animated {
     [self setBookCoverImage:nil];
     [self setRelaxImageView:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
 
 -(IBAction)okButtonPress
 {
-    [alertView removeFromSuperview];
+    [self.alertView removeFromSuperview];
     
     if (!displayedAudioWarning)
     {
@@ -153,9 +142,14 @@
         [self displayMovie];
     }
 }
+
 -(IBAction)cancelButtonPress
 {
     
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

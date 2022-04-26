@@ -14,7 +14,7 @@
 
 +(NSArray *)getChapterArray
 {
-    TextPageOfBook *titlePage = [[[TextPageOfBook alloc] initWithPath:@"title page" andTextPageImageFileType:@"jpg" andBackgroundimageFilePath:nil andBackgroundImageFileType:nil andOverlay:nil andOneTimeAudioPath:nil andOneTimeAudioFileType:nil andOneTimeAudioDelay:0 andMultiPageAudioPath:nil andMultiPageAudioFileType:nil] autorelease];
+    TextPageOfBook *titlePage = [[TextPageOfBook alloc] initWithPath:@"title page" andTextPageImageFileType:@"jpg" andBackgroundimageFilePath:nil andBackgroundImageFileType:nil andOverlay:kBJNone andOneTimeAudioPath:nil andOneTimeAudioFileType:nil andOneTimeAudioDelay:0 andMultiPageAudioPath:nil andMultiPageAudioFileType:nil];
     return [[NSArray alloc] initWithObjects:
             titlePage,
             nil];

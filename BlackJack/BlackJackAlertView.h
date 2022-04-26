@@ -10,7 +10,7 @@
 
 @protocol BlackJackAlertViewDelegate;
 
-enum {
+typedef NS_ENUM(NSUInteger, NSBJAlertType) {
     NSBJFirstLaunch = 1,
     NSBJAudioAnnouncement = 2,
     NSBJReadChapterOne = 3,
@@ -19,18 +19,18 @@ enum {
     NSBJBuyOneGetOne = 6,
     NSBJBuySwag = 7
 };
-typedef NSUInteger NSBJAlertType;
 
 @interface BlackJackAlertView : UIView
 {
-    id<BlackJackAlertViewDelegate> _delegate;
     UIButton *okButton;
     UIButton *cancelButton;
 }
+
 @property NSBJAlertType selectedAlertOption;
-@property(nonatomic, assign) id<BlackJackAlertViewDelegate> delegate;
-@property(nonatomic, assign) UIImage *backgroundImage;
--(id)initWithOption:(NSBJAlertType)alertOption;
+@property(nonatomic, weak, nullable) id<BlackJackAlertViewDelegate> delegate;
+@property(nonatomic, strong, nullable) UIImage *backgroundImage;
+
+-(nonnull instancetype)initWithOption:(NSBJAlertType)alertOption;
 
 @end
 

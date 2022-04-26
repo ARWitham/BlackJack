@@ -17,26 +17,18 @@
 
 @implementation RootViewController
 
-@synthesize modelController = _modelController;
-@synthesize returnToReading;
-
-- (void)dealloc
-{
-    [_pageViewController release];
-    [_modelController release];
-    [super dealloc];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    _modelController = [[ModelController alloc] init];
+    // Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    self.pageViewController = [[[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil] autorelease];
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.delegate = self;
 
-    int startingPageNumber=0;
-    if (returnToReading)
+    NSInteger startingPageNumber=0;
+    if (_returnToReading)
     {
         startingPageNumber = [GGPropertyManager getCurrentPageNumber];
     }
@@ -70,25 +62,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (ModelController *)modelController
-{
-     // Return the model controller object, creating it if necessary.
-     // In more complex implementations, the model controller may be passed to the view controller.
-    if (!_modelController) {
-        _modelController = [[ModelController alloc] init];
-    }
-    return _modelController;
-}
-
 #pragma mark - UIPageViewController delegate methods
-
-/*
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
-    
-}
- */
-
 - (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     
@@ -111,10 +85,11 @@
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 }
+
 -(void)returntoLastPageRead
 {
-    int startingPageNumber=0;
-    int startingChapterNumber=0;
+    NSInteger startingPageNumber=0;
+    NSInteger startingChapterNumber=0;
     startingPageNumber = [GGPropertyManager getCurrentPageNumber];
     startingChapterNumber = [GGPropertyManager getCurrentChapterNumber];
     ChapterViewController *startingViewController = [self.modelController viewControllerAtIndex:startingPageNumber andChapter:startingChapterNumber storyboard:self.storyboard];
@@ -122,14 +97,14 @@
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     
 }
+
 -(void)turnPageAutomatically
 {
-    int currentPageNumber = [GGPropertyManager getCurrentPageNumber];
+    NSInteger currentPageNumber = [GGPropertyManager getCurrentPageNumber];
     ChapterViewController *startingViewController = [self.modelController viewControllerAtIndex:currentPageNumber+1 storyboard:self.storyboard];
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     
 }
-
 
 @end

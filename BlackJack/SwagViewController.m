@@ -11,7 +11,7 @@
 
 @interface SwagViewController ()
 
-@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableArray *items;
 
 @end
 @implementation SwagViewController
@@ -94,12 +94,12 @@
             
     }
     
-    view = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 384.0f, 512.0f)] autorelease];
+    view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 384.0f, 512.0f)];
     ((UIImageView *)view).image = [UIImage imageNamed:imageName];
     view.contentMode = UIViewContentModeCenter;
     
     // Add a transparent button to open the detail view
-    UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(0, 0, 384.0f, 512.0f)];
     [button setBackgroundColor:[UIColor clearColor]];
     [button addTarget:self action:@selector(viewDetailButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -151,17 +151,15 @@
     self.closeDetailedImageButton.hidden=FALSE;
     
 }
+
 -(IBAction) closeDetailButtonPress
 {
     self.detailImageView.hidden=TRUE;
     self.closeDetailedImageButton.hidden=TRUE;
 }
-- (void)dealloc {
-    [_detailImageView release];
-    [super dealloc];
-}
-- (void)viewDidUnload {
+
+- (void)viewDidDisappear:(BOOL)animated {
     [self setDetailImageView:nil];
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
 }
 @end

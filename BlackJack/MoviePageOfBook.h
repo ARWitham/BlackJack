@@ -9,10 +9,10 @@
 #import "MoviePageOfBook.h"
 
 @interface MoviePageOfBook : NSObject
-@property(nonatomic, retain)NSString *foregroundPath;
-@property(nonatomic, retain)NSString *backgroundPath;
-@property(nonatomic, retain) NSURL *movieURL;
-@property(nonatomic, retain) NSURL *audioURL;
+@property(nonatomic, strong)NSString *foregroundPath;
+@property(nonatomic, strong)NSString *backgroundPath;
+@property(nonatomic, strong) NSURL *movieURL;
+@property(nonatomic, strong) NSURL *audioURL;
 @property(nonatomic, readonly) BOOL autoPlay;
 @property(nonatomic, readonly) BOOL repeat;
 @property(nonatomic, readonly) BOOL fadeBackground;

@@ -8,7 +8,8 @@
 
 #import "TextPageOfBook.h"
 
-enum {
+typedef NS_ENUM(NSUInteger, BJOverlayType) {
+    kBJNone = 0,
     kBJCloundsOverlay = 1,
     kBJSnowOverlay = 2,
     kBJCopLightOverlay =3,
@@ -20,47 +21,50 @@ enum {
     kBJPageFadeIn=9,
     kBJFogOverlay=10
 };
-typedef NSUInteger BJOverlayType;
 
 @interface TextPageOfBook : NSObject
-@property(nonatomic, retain)NSString *textPagePath;
-@property(nonatomic, retain)NSString *backgroundPath;
-@property(nonatomic, retain)NSString *flourishName;
+NS_ASSUME_NONNULL_BEGIN
+
+@property(nonatomic, strong)NSString *textPagePath;
+@property(nonatomic, strong)NSString *backgroundPath;
+@property(nonatomic, strong)NSString *flourishName;
 @property(nonatomic) int flourishXAxis;
 @property(nonatomic) int flourishYAxis;
 @property(nonatomic) BJOverlayType overlay;
-@property(nonatomic, retain) NSURL *oneTimeAudioURL;
-@property(nonatomic, retain) NSURL *multiPageTimeAudioURL;
+@property(nonatomic, strong, nullable) NSURL *oneTimeAudioURL;
+@property(nonatomic, strong, nullable) NSURL *multiPageTimeAudioURL;
 @property(nonatomic) int oneTimeAudioDelay;
 
--(id)initWithPath:(NSString *)inputTextPageImageFilePath
-            andTextPageImageFileType:(NSString *)inputTextPageImageFileType
-            andBackgroundimageFilePath:(NSString *)inputBackgroundImageFilePath
-            andBackgroundImageFileType:(NSString *)inputBackgroundImageFileType
+-(id)initWithPath:(nullable NSString *)inputTextPageImageFilePath
+            andTextPageImageFileType:(nullable NSString *)inputTextPageImageFileType
+            andBackgroundimageFilePath:(nullable NSString *)inputBackgroundImageFilePath
+            andBackgroundImageFileType:(nullable NSString *)inputBackgroundImageFileType
             andOverlay:(BJOverlayType)inputOverlay
-            andOneTimeAudioPath:(NSString *)inputOneTimeAudioPath
-            andOneTimeAudioFileType:(NSString *)inputOneTimeAudioFileType
+            andOneTimeAudioPath:(nullable NSString *)inputOneTimeAudioPath
+            andOneTimeAudioFileType:(nullable NSString *)inputOneTimeAudioFileType
             andOneTimeAudioDelay:(int)inputOneTimeAudioDelay
-            andMultiPageAudioPath:(NSString *)inputMultiPageAudioPath
-            andMultiPageAudioFileType:(NSString *)inputMultiPageAudioFileType;
+            andMultiPageAudioPath:(nullable NSString *)inputMultiPageAudioPath
+            andMultiPageAudioFileType:(nullable NSString *)inputMultiPageAudioFileType;
 
 
 
--(id)initWithPath:(NSString *)inputTextPageImageFilePath
-            andTextPageImageFileType:(NSString *)inputTextPageImageFileType
-            andBackgroundimageFilePath:(NSString *)inputBackgroundImageFilePath
-            andBackgroundImageFileType:(NSString *)inputBackgroundImageFileType
+-(id)initWithPath:(nullable NSString *)inputTextPageImageFilePath
+            andTextPageImageFileType:(nullable NSString *)inputTextPageImageFileType
+            andBackgroundimageFilePath:(nullable NSString *)inputBackgroundImageFilePath
+            andBackgroundImageFileType:(nullable NSString *)inputBackgroundImageFileType
             andFlourishName:(NSString *)inputFlourishName
             andFlourishXAxis:(int)inputFlourishXAxis
             andFlourishYAxis:(int)inputFlourishYAxis
             andOverlay:(BJOverlayType)inputOverlay
-            andOneTimeAudioPath:(NSString *)inputOneTimeAudioPath
-            andOneTimeAudioFileType:(NSString *)inputOneTimeAudioFileType
+            andOneTimeAudioPath:(nullable NSString *)inputOneTimeAudioPath
+            andOneTimeAudioFileType:(nullable NSString *)inputOneTimeAudioFileType
             andOneTimeAudioDelay:(int)inputOneTimeAudioDelay
-            andMultiPageAudioPath:(NSString *)inputMultiPageAudioPath
-            andMultiPageAudioFileType:(NSString *)inputMultiPageAudioFileType;
+            andMultiPageAudioPath:(nullable NSString *)inputMultiPageAudioPath
+            andMultiPageAudioFileType:(nullable NSString *)inputMultiPageAudioFileType;
 
 
 
 -(BOOL)displayFlourish;
+
+NS_ASSUME_NONNULL_END
 @end

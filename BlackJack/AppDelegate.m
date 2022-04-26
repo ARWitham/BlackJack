@@ -12,14 +12,6 @@
 @implementation AppDelegate
 @synthesize multiPageAudioPlayer;
 
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [super dealloc];
-}
-
-
 - (void)playMultiPageAudioFromURL:(NSURL *)audioURL
 {
     if (!isMultiPageAudioPlaying)
@@ -32,10 +24,11 @@
         isMultiPageAudioPlaying = TRUE;
     }
 }
+
 -(void)playMultiPageAudioFromPath:(NSString *)inputAudioPath andType:(NSString *)inputAudioFileType
 {
     NSString *auidoPath = [[NSBundle mainBundle] pathForResource:inputAudioPath ofType:inputAudioFileType];
-    NSURL *audioURL = [[NSURL fileURLWithPath:auidoPath] retain];
+    NSURL *audioURL = [NSURL fileURLWithPath:auidoPath];
     [self playMultiPageAudioFromURL:audioURL];
 }
 
@@ -47,6 +40,7 @@
         isMultiPageAudioPlaying=FALSE;
     }
 }
+
 -(void)doMultiPageAudioFade
 {
     if (multiPageAudioPlayer.volume > 0.1) {
